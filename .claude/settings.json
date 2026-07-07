@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(**)",
+      "Edit(*.html)",
+      "Edit(*.css)",
+      "Edit(*.js)",
+      "Edit(*.md)",
+      "Edit(.env)",
+      "Write(*.html)",
+      "Write(*.css)",
+      "Write(*.js)",
+      "Write(*.md)",
+      "Write(.claude/**)",
+      "Bash(npx *)",
+      "Bash(node *)"
+    ],
+    "deny": [
+      "Bash(rm -rf *)",
+      "Bash(git push *)",
+      "Bash(curl * | bash)"
+    ]
+  }
+}

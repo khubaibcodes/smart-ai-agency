@@ -1,0 +1,255 @@
+/* ============================================
+   GenZ AI Agency — Main JavaScript
+   ============================================ */
+
+// ---- Navbar scroll effect ----
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 20) {
+    navbar.classList.add('scrolled');
+  } else {
+    navbar.classList.remove('scrolled');
+  }
+});
+
+// ---- Mobile hamburger menu ----
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('navLinks');
+
+if (hamburger && navLinks) {
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+    const isOpen = navLinks.classList.contains('open');
+    hamburger.setAttribute('aria-expanded', isOpen);
+
+    // Animate hamburger bars
+    const bars = hamburger.querySelectorAll('span');
+    if (isOpen) {
+      bars[0].style.transform = 'translateY(7px) rotate(45deg)';
+      bars[1].style.opacity = '0';
+      bars[2].style.transform = 'translateY(-7px) rotate(-45deg)';
+    } else {
+      bars[0].style.transform = '';
+      bars[1].style.opacity = '';
+      bars[2].style.transform = '';
+    }
+  });
+
+  // Close menu when a link is clicked
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      const bars = hamburger.querySelectorAll('span');
+      bars[0].style.transform = '';
+      bars[1].style.opacity = '';
+      bars[2].style.transform = '';
+    });
+  });
+
+  // Close on outside click
+  document.addEventListener('click', (e) => {
+    if (!navbar.contains(e.target)) {
+      navLinks.classList.remove('open');
+    }
+  });
+}
+
+// ---- Scroll-triggered animations (AOS-lite) ----
+const animatedEls = document.querySelectorAll('[data-aos]');
+if (animatedEls.length > 0) {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const delay = entry.target.dataset.delay || 0;
+        setTimeout(() => {
+          entry.target.classList.add('aos-animate');
+        }, parseInt(delay));
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  animatedEls.forEach(el => observer.observe(el));
+}
+
+// ---- Counter animation for stats ----
+function animateCounter(el, target, duration = 1500) {
+  const start = 0;
+  const increment = target / (duration / 16);
+  let current = start;
+  const timer = setInterval(() => {
+    current += increment;
+    if (current >= target) {
+      current = target;
+      clearInterval(timer);
+    }
+    // Keep suffix (+ or %)
+    const suffix = el.dataset.suffix || '';
+    el.textContent = Math.floor(current) + suffix;
+  }, 16);
+}
+
+const statNumbers = document.querySelectorAll('.stat-number');
+if (statNumbers.length > 0) {
+  const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const text = el.textContent;
+        const num = parseInt(text.replace(/\D/g, ''));
+        const suffix = text.replace(/[0-9]/g, '');
+        el.dataset.suffix = suffix;
+        animateCounter(el, num);
+        statsObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  statNumbers.forEach(el => statsObserver.observe(el));
+}
+
+// ---- Supabase client ----
+const SUPABASE_URL = 'https://mygwzigxuaoxzslkblks.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im15Z3d6aWd4dWFveHpzbGtibGtzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ3OTEyMTMsImV4cCI6MjA5MDM2NzIxM30.ZDb6NhE5BjKaVvOBRXuqOytKeOiDDFhH8DiiEyFt_zc';
+
+function getSupabaseClient() {
+  if (window.supabase && window.supabase.createClient) {
+    return window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  }
+  return null;
+}
+
+// ---- Contact form handling ----
+const contactForm = document.getElementById('contactForm');
+const formSuccess = document.getElementById('formSuccess');
+const formError = document.getElementById('formError');
+
+if (contactForm) {
+  contactForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // Hide previous error
+    if (formError) formError.style.display = 'none';
+
+    // Validate required fields
+    const required = contactForm.querySelectorAll('[required]');
+    let valid = true;
+    required.forEach(field => {
+      if (!field.value.trim()) {
+        field.style.borderColor = '#ef4444';
+        field.style.boxShadow = '0 0 0 3px rgba(239,68,68,0.15)';
+        valid = false;
+      } else {
+        field.style.borderColor = '';
+        field.style.boxShadow = '';
+      }
+    });
+    if (!valid) return;
+
+    const submitBtn = contactForm.querySelector('.form-submit');
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+
+    const db = getSupabaseClient();
+    if (!db) {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Message';
+      if (formError) {
+        formError.textContent = 'Could not connect to database. Please try again.';
+        formError.style.display = 'block';
+      }
+      return;
+    }
+
+    try {
+      const { error } = await db
+        .from('contact_submissions')
+        .insert({
+          first_name: document.getElementById('firstName').value.trim(),
+          last_name: document.getElementById('lastName').value.trim(),
+          email: document.getElementById('email').value.trim(),
+          company: document.getElementById('company').value.trim() || null,
+          service: document.getElementById('service').value,
+          budget: document.getElementById('budget').value || null,
+          message: document.getElementById('message').value.trim()
+        });
+
+      if (error) throw error;
+
+      contactForm.style.display = 'none';
+      if (formSuccess) formSuccess.style.display = 'block';
+
+      setTimeout(() => {
+        contactForm.reset();
+        contactForm.style.display = 'block';
+        if (formSuccess) formSuccess.style.display = 'none';
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Message';
+      }, 5000);
+
+    } catch (err) {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Message';
+      if (formError) {
+        formError.textContent = 'Something went wrong. Please try again.';
+        formError.style.display = 'block';
+      }
+    }
+  });
+
+  // Clear error styles on input
+  contactForm.querySelectorAll('input, select, textarea').forEach(field => {
+    field.addEventListener('input', () => {
+      field.style.borderColor = '';
+      field.style.boxShadow = '';
+    });
+  });
+}
+
+// ---- FAQ accordion ----
+function toggleFaq(item) {
+  const answer = item.querySelector('p');
+  const icon = item.querySelector('i');
+  const isOpen = answer.style.display === 'block';
+
+  // Close all
+  document.querySelectorAll('.faq-item p').forEach(p => p.style.display = 'none');
+  document.querySelectorAll('.faq-item i').forEach(i => i.style.transform = '');
+
+  if (!isOpen) {
+    answer.style.display = 'block';
+    icon.style.transform = 'rotate(180deg)';
+  }
+}
+
+// ---- Smooth scroll for anchor links ----
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', (e) => {
+    const target = document.querySelector(anchor.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      const offset = 80;
+      const top = target.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  });
+});
+
+// ---- Active nav link highlight on scroll ----
+const sections = document.querySelectorAll('section[id]');
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY + 100;
+  sections.forEach(section => {
+    const sectionTop = section.offsetTop;
+    const sectionHeight = section.offsetHeight;
+    const id = section.getAttribute('id');
+    const link = document.querySelector(`.nav-links a[href="#${id}"]`);
+    if (link) {
+      if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+        link.classList.add('active');
+      } else {
+        link.classList.remove('active');
+      }
+    }
+  });
+});

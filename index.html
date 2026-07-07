@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="GenZ AI Agency — RAG agents, Voice AI, Claude-powered automation, n8n workflows, SharePoint integration for international clients." />
+  <title>GenZ AI Agency | Intelligent AI Solutions</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <span class="logo-icon"><i class="fa-solid fa-brain"></i></span>
+        GenZ <span class="accent">AI</span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <a href="contact.html" class="btn btn-primary nav-cta">Get Started</a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="home">
+    <div class="hero-bg">
+      <div class="hero-orb orb-1"></div>
+      <div class="hero-orb orb-2"></div>
+      <div class="hero-orb orb-3"></div>
+      <div class="grid-overlay"></div>
+      <!-- Particles -->
+      <div class="hero-particle p1"></div>
+      <div class="hero-particle p2"></div>
+      <div class="hero-particle p3"></div>
+      <div class="hero-particle p4"></div>
+      <div class="hero-particle p5"></div>
+      <div class="hero-particle p6"></div>
+    </div>
+    <div class="container hero-content">
+      <div class="hero-badge">
+        <i class="fa-solid fa-bolt"></i> AI-Powered Agency
+      </div>
+      <h1 class="hero-title">
+        Automate. Integrate.<br />
+        <span class="gradient-text">Accelerate.</span>
+      </h1>
+      <p class="hero-subtitle">
+        We build intelligent AI agents — RAG systems, Voice AI, Claude-powered bots,
+        n8n workflows, and SharePoint automation — that save your team hours every day.
+      </p>
+      <div class="hero-cta">
+        <a href="services.html" class="btn btn-primary btn-lg">Explore Services</a>
+        <a href="contact.html" class="btn btn-outline btn-lg">Talk to Us</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-number">50+</span>
+          <span class="stat-label">Projects Delivered</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-number">20+</span>
+          <span class="stat-label">International Clients</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-number">80%</span>
+          <span class="stat-label">Time Saved on Average</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <span>Scroll Down</span>
+      <i class="fa-solid fa-chevron-down bounce"></i>
+    </div>
+  </section>
+
+  <!-- ===== TECH BAR ===== -->
+  <div class="tech-bar">
+    <div class="container">
+      <p class="tech-bar-label">Powered by the world's best AI tools</p>
+      <div class="tech-logos">
+        <span class="tech-chip"><i class="fa-solid fa-brain" style="color:#f59e0b;"></i> Claude API</span>
+        <span class="tech-chip"><i class="fa-solid fa-robot" style="color:#10a37f;"></i> OpenAI GPT-4</span>
+        <span class="tech-chip"><i class="fa-solid fa-gears" style="color:#ef4444;"></i> n8n</span>
+        <span class="tech-chip"><i class="fa-solid fa-bolt" style="color:#f97316;"></i> Make</span>
+        <span class="tech-chip"><i class="fa-brands fa-microsoft" style="color:#0078d4;"></i> SharePoint</span>
+        <span class="tech-chip"><i class="fa-solid fa-microphone" style="color:#8b5cf6;"></i> Deepgram</span>
+        <span class="tech-chip"><i class="fa-solid fa-database" style="color:#38bdf8;"></i> Pinecone</span>
+        <span class="tech-chip"><i class="fa-solid fa-link" style="color:#6366f1;"></i> LangChain</span>
+        <span class="tech-chip"><i class="fa-brands fa-aws" style="color:#ff9900;"></i> AWS</span>
+        <span class="tech-chip"><i class="fa-solid fa-cloud" style="color:#34d399;"></i> Supabase</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SERVICES OVERVIEW ===== -->
+  <section class="section services-preview" id="services">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag"><i class="fa-solid fa-sparkles"></i> What We Build</span>
+        <h2 class="section-title">AI Solutions That <span class="gradient-text">Work For You</span></h2>
+        <p class="section-subtitle">From intelligent document search to hands-free voice commands — we deliver automation that fits your workflow perfectly.</p>
+      </div>
+      <div class="services-grid">
+
+        <div class="service-card" data-aos="fade-up" data-delay="0">
+          <div class="service-icon" style="--color: #ff8c00;">
+            <i class="fa-solid fa-database"></i>
+          </div>
+          <h3>RAG Agents</h3>
+          <p>Retrieval-Augmented Generation systems that let your team query internal documents, PDFs, and knowledge bases with natural language — instantly.</p>
+          <a href="services.html#rag" class="card-link">Learn more <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+
+        <div class="service-card" data-aos="fade-up" data-delay="100">
+          <div class="service-icon" style="--color: #ff6b35;">
+            <i class="fa-solid fa-microphone-lines"></i>
+          </div>
+          <h3>Voice AI Agents</h3>
+          <p>Hands-free intelligent assistants that understand commands, answer questions, and trigger workflows — all through natural speech in 20+ languages.</p>
+          <a href="services.html#voice" class="card-link">Learn more <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+
+        <div class="service-card" data-aos="fade-up" data-delay="200">
+          <div class="service-icon" style="--color: #ffc107;">
+            <i class="fa-brands fa-microsoft"></i>
+          </div>
+          <h3>SharePoint Integration</h3>
+          <p>Connect AI agents directly to your Microsoft 365 environment — automate document management, approvals, and team collaboration at scale.</p>
+          <a href="services.html#sharepoint" class="card-link">Learn more <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+
+        <div class="service-card" data-aos="fade-up" data-delay="300">
+          <div class="service-icon" style="--color: #ffb347;">
+            <i class="fa-solid fa-gears"></i>
+          </div>
+          <h3>Workflow Automation</h3>
+          <p>End-to-end automation pipelines using n8n, Make, and custom agents that eliminate repetitive tasks and reduce human error dramatically.</p>
+          <a href="services.html#automation" class="card-link">Learn more <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+
+        <div class="service-card" data-aos="fade-up" data-delay="400">
+          <div class="service-icon" style="--color: #ffc107;">
+            <i class="fa-solid fa-robot"></i>
+          </div>
+          <h3>Custom AI Agents</h3>
+          <p>Tailor-built AI agents for your specific industry needs — from customer support bots to internal ops assistants that never sleep.</p>
+          <a href="services.html#custom" class="card-link">Learn more <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+
+        <div class="service-card" data-aos="fade-up" data-delay="500">
+          <div class="service-icon" style="--color: #ff6b35;">
+            <i class="fa-solid fa-chart-line"></i>
+          </div>
+          <h3>AI Consulting</h3>
+          <p>Strategic roadmaps, audits, and implementation plans to help your organization adopt AI effectively, responsibly, and profitably.</p>
+          <a href="services.html#consulting" class="card-link">Learn more <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+
+      </div>
+      <div class="section-cta">
+        <a href="services.html" class="btn btn-primary">View All Services</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CLAUDE AI SERVICES ===== -->
+  <section class="section claude-section" id="claude-services">
+    <div class="container">
+      <div class="claude-header">
+        <div class="claude-header-left">
+          <div class="claude-badge"><i class="fa-solid fa-brain"></i> Claude AI Powered</div>
+          <h2 class="section-title" style="margin-bottom:0;">Built with <span class="gradient-text">Claude API</span> — Anthropic's Most Advanced AI</h2>
+        </div>
+        <div class="claude-header-right">
+          <p>We build production-grade AI solutions powered by Claude (claude-sonnet-4-6 & claude-opus-4-6) — Anthropic's safest, most intelligent models. Every agent we deploy is crafted for real-world reliability, not just demos.</p>
+          <a href="contact.html" class="btn btn-ghost btn-sm" style="margin-top:16px;">Start a Claude Project <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="claude-grid">
+
+        <div class="claude-card" data-aos="fade-up" data-delay="0">
+          <div class="claude-card-icon" style="background:rgba(255,140,0,0.12); color:var(--primary);">
+            <i class="fa-solid fa-comments"></i>
+          </div>
+          <h3>Claude Chat Agents</h3>
+          <p>Customer-facing and internal chat agents powered by Claude. Understands context deeply, maintains multi-turn conversations, and escalates to humans when needed.</p>
+          <div class="claude-card-tags">
+            <span class="tag tag-purple">Claude Sonnet 4.6</span>
+            <span class="tag tag-cyan">Multi-turn</span>
+            <span class="tag tag-green">Human handoff</span>
+          </div>
+        </div>
+
+        <div class="claude-card" data-aos="fade-up" data-delay="100">
+          <div class="claude-card-icon" style="background:rgba(255,193,7,0.1); color:var(--accent);">
+            <i class="fa-solid fa-file-magnifying-glass"></i>
+          </div>
+          <h3>Document Intelligence</h3>
+          <p>Claude reads, summarizes, extracts, and reasons over large documents — contracts, reports, manuals — returning structured answers with source citations.</p>
+          <div class="claude-card-tags">
+            <span class="tag tag-cyan">PDF / Word / Excel</span>
+            <span class="tag tag-purple">Citations</span>
+            <span class="tag tag-amber">200K context</span>
+          </div>
+        </div>
+
+        <div class="claude-card" data-aos="fade-up" data-delay="200">
+          <div class="claude-card-icon" style="background:rgba(255,179,71,0.1); color:var(--accent2);">
+            <i class="fa-solid fa-code-branch"></i>
+          </div>
+          <h3>Agentic Tool Use</h3>
+          <p>Claude agents that call APIs, browse web pages, write and run code, and chain multi-step tasks autonomously — all with safety and human oversight built in.</p>
+          <div class="claude-card-tags">
+            <span class="tag tag-green">Tool calling</span>
+            <span class="tag tag-purple">Multi-step</span>
+            <span class="tag tag-cyan">API integration</span>
+          </div>
+        </div>
+
+        <div class="claude-card" data-aos="fade-up" data-delay="300">
+          <div class="claude-card-icon" style="background:rgba(255,140,0,0.1); color:#ff8c00;">
+            <i class="fa-solid fa-shield-halved"></i>
+          </div>
+          <h3>Safe Enterprise AI</h3>
+          <p>Anthropic's Constitutional AI makes Claude the safest choice for enterprise. We configure system prompts, guardrails, and data handling policies for full compliance.</p>
+          <div class="claude-card-tags">
+            <span class="tag tag-amber">Constitutional AI</span>
+            <span class="tag tag-green">GDPR ready</span>
+            <span class="tag tag-purple">Private deploy</span>
+          </div>
+        </div>
+
+        <div class="claude-card" data-aos="fade-up" data-delay="400">
+          <div class="claude-card-icon" style="background:rgba(255,107,53,0.1); color:var(--secondary);">
+            <i class="fa-solid fa-language"></i>
+          </div>
+          <h3>Multilingual AI</h3>
+          <p>Claude speaks 95+ languages fluently. Deploy support agents, document processors, or chatbots that seamlessly switch languages mid-conversation.</p>
+          <div class="claude-card-tags">
+            <span class="tag tag-purple">95+ languages</span>
+            <span class="tag tag-cyan">Auto-detect</span>
+            <span class="tag tag-green">Cultural context</span>
+          </div>
+        </div>
+
+        <div class="claude-card" data-aos="fade-up" data-delay="500">
+          <div class="claude-card-icon" style="background:rgba(255,140,0,0.1); color:#ff8c00;">
+            <i class="fa-solid fa-plug"></i>
+          </div>
+          <h3>Claude + Your Stack</h3>
+          <p>We integrate Claude into your existing tools — Slack, Teams, Notion, CRM, or custom platforms — via REST API or SDK with full error handling and retries.</p>
+          <div class="claude-card-tags">
+            <span class="tag tag-amber">SDK integration</span>
+            <span class="tag tag-purple">Slack / Teams</span>
+            <span class="tag tag-cyan">Webhook ready</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== AUTOMATION STACK ===== -->
+  <section class="section automation-section" id="automation-stack">
+    <div class="container">
+      <div class="tools-showcase">
+        <div class="tools-content" data-aos="fade-right">
+          <span class="section-tag"><i class="fa-solid fa-gears"></i> Automation Tools</span>
+          <h2>We Automate with <span class="gradient-text">Industry-Leading Tools</span></h2>
+          <p>We're experts in the world's most powerful automation platforms. From no-code to full custom pipelines, we pick the right tool for your exact workflow — and wire everything together so it just works.</p>
+          <div class="tool-list">
+            <div class="tool-item">
+              <div class="tool-logo" style="background:rgba(239,68,68,0.12); color:#ef4444; font-size:0.85rem; font-weight:900;">n8n</div>
+              <div class="tool-info">
+                <h4>n8n Workflow Automation</h4>
+                <p>Self-hosted or cloud — data stays private. 400+ integrations, visual builder, AI nodes.</p>
+              </div>
+              <span class="tool-badge">Preferred</span>
+            </div>
+            <div class="tool-item">
+              <div class="tool-logo" style="background:rgba(99,102,241,0.12); color:#818cf8; font-size:0.85rem; font-weight:900;">Make</div>
+              <div class="tool-info">
+                <h4>Make (Integromat)</h4>
+                <p>Visual automation for complex multi-app workflows. Excellent for marketing ops.</p>
+              </div>
+              <span class="tool-badge">Expert</span>
+            </div>
+            <div class="tool-item">
+              <div class="tool-logo" style="background:rgba(255,193,7,0.1); color:var(--accent); font-size:1.1rem;">⚡</div>
+              <div class="tool-info">
+                <h4>Zapier</h4>
+                <p>Fast, simple automations for 6,000+ apps. Ideal for quick wins and SMB workflows.</p>
+              </div>
+              <span class="tool-badge">Available</span>
+            </div>
+            <div class="tool-item">
+              <div class="tool-logo" style="background:rgba(255,179,71,0.1); color:var(--accent2); font-size:1.1rem;">🔧</div>
+              <div class="tool-info">
+                <h4>Custom Pipelines</h4>
+                <p>Python / Node.js pipelines with LangChain, Claude API, and your own infrastructure.</p>
+              </div>
+              <span class="tool-badge">Advanced</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="tools-visual" data-aos="fade-left" data-delay="150">
+          <div class="workflow-diagram">
+            <p class="wf-title"><i class="fa-solid fa-circle-dot" style="color:var(--accent2); margin-right:6px;"></i> Live Workflow Example</p>
+            <div class="wf-nodes">
+              <div class="wf-node trigger">
+                <div class="wf-node-icon"><i class="fa-solid fa-envelope"></i></div>
+                <div class="wf-node-text">
+                  <h5>Email Received</h5>
+                  <p>Trigger: new email in inbox</p>
+                </div>
+                <div class="wf-pulse"></div>
+              </div>
+              <div class="wf-connector"></div>
+              <div class="wf-node process">
+                <div class="wf-node-icon"><i class="fa-solid fa-brain"></i></div>
+                <div class="wf-node-text">
+                  <h5>Claude AI Reads</h5>
+                  <p>Classify intent + extract data</p>
+                </div>
+              </div>
+              <div class="wf-connector"></div>
+              <div class="wf-node action">
+                <div class="wf-node-icon"><i class="fa-solid fa-gears"></i></div>
+                <div class="wf-node-text">
+                  <h5>n8n Routes Task</h5>
+                  <p>Update CRM, assign ticket</p>
+                </div>
+              </div>
+              <div class="wf-connector"></div>
+              <div class="wf-node output">
+                <div class="wf-node-icon"><i class="fa-solid fa-paper-plane"></i></div>
+                <div class="wf-node-text">
+                  <h5>Auto-Reply Sent</h5>
+                  <p>Personalized response in &lt;3s</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:16px;">
+            <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-sm); padding:18px; text-align:center;">
+              <div class="stat-number" style="font-size:1.6rem;">40h</div>
+              <div style="font-size:0.78rem; color:var(--text-muted); margin-top:4px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em;">Saved / week avg.</div>
+            </div>
+            <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-sm); padding:18px; text-align:center;">
+              <div class="stat-number" style="font-size:1.6rem;">99%</div>
+              <div style="font-size:0.78rem; color:var(--text-muted); margin-top:4px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em;">Uptime guarantee</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== HOW IT WORKS ===== -->
+  <section class="section how-it-works">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag"><i class="fa-solid fa-route"></i> Our Process</span>
+        <h2 class="section-title">From Idea to <span class="gradient-text">Deployment</span></h2>
+        <p class="section-subtitle">A clear, proven process that keeps you in control every step of the way.</p>
+      </div>
+      <div class="steps-grid">
+        <div class="step" data-aos="fade-up" data-delay="0">
+          <span class="step-number">01</span>
+          <h3>Discovery Call</h3>
+          <p>We learn your workflows, pain points, and goals to identify the highest-impact AI opportunities.</p>
+        </div>
+        <div class="step-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+        <div class="step" data-aos="fade-up" data-delay="100">
+          <span class="step-number">02</span>
+          <h3>Design & Prototype</h3>
+          <p>We design your AI solution architecture and deliver a working prototype for your feedback.</p>
+        </div>
+        <div class="step-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+        <div class="step" data-aos="fade-up" data-delay="200">
+          <span class="step-number">03</span>
+          <h3>Build & Integrate</h3>
+          <p>Full development, testing, and seamless integration into your existing tools and platforms.</p>
+        </div>
+        <div class="step-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+        <div class="step" data-aos="fade-up" data-delay="300">
+          <span class="step-number">04</span>
+          <h3>Launch & Support</h3>
+          <p>We deploy, train your team, and provide ongoing support to ensure lasting results.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TESTIMONIALS ===== -->
+  <section class="section testimonials">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag"><i class="fa-solid fa-star"></i> Client Stories</span>
+        <h2 class="section-title">What Our <span class="gradient-text">Clients Say</span></h2>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card" data-aos="fade-up" data-delay="0">
+          <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+          <p>"The RAG agent GenZ AI built cut our document search time from hours to seconds. Our team can't imagine working without it."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">A</div>
+            <div>
+              <strong>Ayesha</strong>
+              <span>Operations Director, UK</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card featured" data-aos="fade-up" data-delay="100">
+          <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+          <p>"Their Voice AI integration with our call center saved us 40 hours per week. Professional team, outstanding delivery, highly recommend."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">A</div>
+            <div>
+              <strong>Abdul Samad</strong>
+              <span>CEO, Lagos Tech Hub</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card" data-aos="fade-up" data-delay="200">
+          <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+          <p>"SharePoint automation completely transformed how we handle onboarding. What took 3 days now takes 20 minutes. Incredible ROI."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">K</div>
+            <div>
+              <strong>Khansa</strong>
+              <span>HR Manager, Sweden</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA BANNER ===== -->
+  <section class="cta-banner">
+    <div class="container">
+      <h2>Ready to save time with AI?</h2>
+      <p>Book a free 30-minute discovery call. No commitment required.</p>
+      <div class="btn-group">
+        <a href="contact.html" class="btn btn-white btn-lg">Book Free Call</a>
+        <a href="services.html" class="btn btn-outline btn-lg" style="border-color:rgba(255,255,255,0.3); color:#fff;">See All Services</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">GenZ <span class="accent">AI</span></a>
+        <p>Intelligent AI solutions for forward-thinking international businesses.</p>
+        <div class="social-links">
+          <a href="https://www.linkedin.com/in/khubaib-haider-a00347378/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                  </div>
+      </div>
+      <div class="footer-links">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="services.html#rag">RAG Agents</a></li>
+          <li><a href="services.html#voice">Voice AI</a></li>
+          <li><a href="services.html#sharepoint">SharePoint</a></li>
+          <li><a href="services.html#automation">Automation</a></li>
+          <li><a href="services.html#claude">Claude AI</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h4>Contact</h4>
+        <p><i class="fa-solid fa-envelope"></i> join.khubaibhaider@gmail.com</p>
+        <p><i class="fa-solid fa-globe"></i> Available Worldwide</p>
+        <p><i class="fa-solid fa-clock"></i> Mon–Fri, 9am–6pm GMT</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 GenZ AI Agency. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
