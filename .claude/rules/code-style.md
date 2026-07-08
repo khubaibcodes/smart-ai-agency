@@ -1,4 +1,4 @@
-# Code Style Rules — GenZ AI Agency
+# Code Style Rules — Smart AI Agency
 
 ## HTML
 - Use semantic HTML5 elements only

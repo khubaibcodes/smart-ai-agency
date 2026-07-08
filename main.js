@@ -1,6 +1,6 @@
 /* ============================================
-   GenZ AI Agency — Main JavaScript
-   ============================================ */
+  Smart AI Agency — Main JavaScript
+  ============================================ */
 
 // ---- Navbar scroll effect ----
 const navbar = document.getElementById('navbar');

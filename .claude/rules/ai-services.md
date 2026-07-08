@@ -1,4 +1,4 @@
-# AI Services Rules — GenZ AI Agency
+# AI Services Rules — Smart AI Agency
 
 ## RAG Agent Patterns
 - Always use LangChain as the orchestration layer

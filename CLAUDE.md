@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**GenZ AI Agency** — A professional AI agency website and service delivery platform. The owner provides AI automation services to international clients and local businesses, including:
+**Smart AI Agency** — A professional AI agency website and service delivery platform. The owner provides AI automation services to international clients and local businesses, including:
 
 - **RAG Agents** — document Q&A systems using LangChain and vector stores
 - **Voice AI** — speech-to-text/TTS pipelines for hands-free workflows
@@ -102,5 +102,5 @@ When working on this project as an agent:
 - Target clients: international companies + local SMBs wanting AI automation
 - Primary value proposition: **save time and effort** through RAG, voice, and workflow automation
 - Owner's name: **Khubab**
-- Contact email: `hello@genzai.agency` (placeholder — update before launch)
+-- Contact email: `hello@genzai.agency` (placeholder — update before launch)
 - All pricing, timelines, and team details on the site are placeholders to be updated
