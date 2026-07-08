@@ -253,3 +253,120 @@ window.addEventListener('scroll', () => {
     }
   });
 });
+
+// ---- 3D hero visual (constellation network) ----
+(function initHero3D() {
+  const canvas = document.getElementById('hero3d');
+  if (!canvas) return;
+  if (typeof THREE === 'undefined') return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (window.innerWidth < 420) return;
+
+  let renderer;
+  try {
+    renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+  } catch (e) {
+    return;
+  }
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 100);
+  camera.position.z = 7;
+
+  function setSize() {
+    const parent = canvas.parentElement;
+    const w = parent.clientWidth || window.innerWidth;
+    const h = parent.clientHeight || window.innerHeight;
+    renderer.setSize(w, h, false);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+  }
+
+  const group = new THREE.Group();
+  scene.add(group);
+
+  // Constellation network — nodes distributed on a sphere, linked when close
+  const NODE_COUNT = window.innerWidth < 768 ? 34 : 60;
+  const RADIUS = 3.4;
+  const nodes = [];
+  for (let i = 0; i < NODE_COUNT; i++) {
+    const phi = Math.acos(-1 + (2 * i) / NODE_COUNT);
+    const theta = Math.sqrt(NODE_COUNT * Math.PI) * phi;
+    const r = RADIUS * (0.7 + Math.random() * 0.3);
+    nodes.push(new THREE.Vector3(
+      r * Math.cos(theta) * Math.sin(phi),
+      r * Math.sin(theta) * Math.sin(phi),
+      r * Math.cos(phi)
+    ));
+  }
+
+  const pointsGeo = new THREE.BufferGeometry().setFromPoints(nodes);
+  const pointsMat = new THREE.PointsMaterial({
+    color: 0x67e8f9,
+    size: 0.09,
+    transparent: true,
+    opacity: 0.9,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false
+  });
+  group.add(new THREE.Points(pointsGeo, pointsMat));
+
+  const linePositions = [];
+  const LINK_DIST = 1.7;
+  for (let i = 0; i < nodes.length; i++) {
+    for (let j = i + 1; j < nodes.length; j++) {
+      if (nodes[i].distanceTo(nodes[j]) < LINK_DIST) {
+        linePositions.push(nodes[i].x, nodes[i].y, nodes[i].z, nodes[j].x, nodes[j].y, nodes[j].z);
+      }
+    }
+  }
+  const lineGeo = new THREE.BufferGeometry();
+  lineGeo.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
+  const lineMat = new THREE.LineBasicMaterial({
+    color: 0x2563eb,
+    transparent: true,
+    opacity: 0.25,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false
+  });
+  group.add(new THREE.LineSegments(lineGeo, lineMat));
+
+  // Inner wireframe icosahedron for structure
+  const ico = new THREE.Mesh(
+    new THREE.IcosahedronGeometry(2.1, 1),
+    new THREE.MeshBasicMaterial({ color: 0x22d3ee, wireframe: true, transparent: true, opacity: 0.18 })
+  );
+  group.add(ico);
+
+  setSize();
+  window.addEventListener('resize', setSize);
+
+  let targetTiltX = 0, targetTiltY = 0;
+  let tiltX = 0, tiltY = 0, autoY = 0;
+  window.addEventListener('mousemove', (e) => {
+    targetTiltY = (e.clientX / window.innerWidth - 0.5) * 0.5;
+    targetTiltX = (e.clientY / window.innerHeight - 0.5) * 0.35;
+  });
+
+  let running = true;
+  let frameId = null;
+  document.addEventListener('visibilitychange', () => {
+    running = !document.hidden;
+    if (running && !frameId) animate();
+  });
+
+  function animate() {
+    if (!running) { frameId = null; return; }
+    frameId = requestAnimationFrame(animate);
+    autoY += 0.0025;
+    tiltX += (targetTiltX - tiltX) * 0.03;
+    tiltY += (targetTiltY - tiltY) * 0.03;
+    group.rotation.x = tiltX;
+    group.rotation.y = autoY + tiltY;
+    ico.rotation.y -= 0.0015;
+    ico.rotation.x += 0.0011;
+    renderer.render(scene, camera);
+  }
+  animate();
+})();
