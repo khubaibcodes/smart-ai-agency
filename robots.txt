@@ -1,0 +1,27 @@
+# Smart AI Agency robots.txt
+# Search engine crawler instructions
+
+User-agent: *
+Allow: /
+Allow: /index.html
+Allow: /services.html
+Allow: /about.html
+Allow: /contact.html
+Allow: /privacy.html
+Disallow: /admin.html
+Disallow: /admin/
+Disallow: /private/
+Disallow: /*.json$
+Disallow: /*.env*
+
+# Specific crawler instructions
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# Sitemap location
+Sitemap: https://genzai.agency/sitemap.xml

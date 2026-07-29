@@ -6,11 +6,19 @@
   <meta name="description" content="Smart AI Agency Services — RAG Agents, Voice AI, Claude-powered agents, n8n automation, SharePoint Integration." />
   <title>Services | Smart AI Agency</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+
+  <!-- Preload critical resources -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" as="style" />
+  <link rel="preload" href="styles.css" as="style" />
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
+
   <link rel="stylesheet" href="styles.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
+  <a href="#services-hero" class="skip-to-content">Skip to main content</a>
 
   <!-- NAVBAR -->
   <nav class="navbar" id="navbar">
@@ -33,7 +41,7 @@
   </nav>
 
   <!-- PAGE HERO -->
-  <section class="page-hero">
+  <section class="page-hero" id="services-hero">
     <div class="page-hero-bg">
       <div class="hero-orb orb-1"></div>
       <div class="hero-orb orb-2"></div>
@@ -316,6 +324,6 @@
     </div>
   </footer>
 
-  <script src="main.js"></script>
+  <script src="main.js" defer></script>
 </body>
 </html>

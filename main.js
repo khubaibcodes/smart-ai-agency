@@ -2,6 +2,35 @@
   Smart AI Agency — Main JavaScript
   ============================================ */
 
+// ---- Performance Monitoring ----
+if (window.performance && window.performance.timing) {
+  window.addEventListener('load', () => {
+    const perfData = window.performance.timing;
+    const pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
+    const connectTime = perfData.responseEnd - perfData.requestStart;
+    const renderTime = perfData.domComplete - perfData.domLoading;
+
+    console.log(`⚡ Performance Metrics:
+      Total Load: ${pageLoadTime}ms
+      Connection: ${connectTime}ms
+      DOM Rendering: ${renderTime}ms`);
+
+    if (window.PerformanceObserver) {
+      try {
+        const observer = new PerformanceObserver((list) => {
+          const entries = list.getEntries();
+          entries.forEach(entry => {
+            if (entry.entryType === 'largest-contentful-paint') {
+              console.log(`📊 LCP: ${entry.renderTime || entry.loadTime}ms`);
+            }
+          });
+        });
+        observer.observe({ entryTypes: ['largest-contentful-paint'] });
+      } catch (e) {}
+    }
+  });
+}
+
 // ---- Navbar scroll effect ----
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
@@ -108,73 +137,205 @@ if (statNumbers.length > 0) {
   statNumbers.forEach(el => statsObserver.observe(el));
 }
 
-// ---- Supabase client ----
+// ---- Email Service Config ----
+let emailConfig = {
+  supabase: { url: '', key: '' },
+  emailjs: { serviceId: '', templateId: '', publicKey: '' }
+};
+
+// Load config from config.js if available
+if (typeof CONFIG !== 'undefined') {
+  CONFIG.then(config => {
+    emailConfig.supabase = {
+      url: config.VITE_SUPABASE_URL || '',
+      key: config.VITE_SUPABASE_ANON_KEY || ''
+    };
+    emailConfig.emailjs = {
+      serviceId: config.VITE_EMAILJS_SERVICE_ID || '',
+      templateId: config.VITE_EMAILJS_TEMPLATE_ID || '',
+      publicKey: config.VITE_EMAILJS_PUBLIC_KEY || ''
+    };
+    if (emailConfig.emailjs.publicKey && window.emailjs) {
+      window.emailjs.init(emailConfig.emailjs.publicKey);
+    }
+  }).catch(err => console.warn('Config load failed:', err));
+}
+
+// Fallback: Supabase direct credentials (for existing setup)
 const SUPABASE_URL = 'https://mygwzigxuaoxzslkblks.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im15Z3d6aWd4dWFveHpzbGtibGtzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ3OTEyMTMsImV4cCI6MjA5MDM2NzIxM30.ZDb6NhE5BjKaVvOBRXuqOytKeOiDDFhH8DiiEyFt_zc';
 
 function getSupabaseClient() {
-  if (window.supabase && window.supabase.createClient) {
-    return window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  const url = emailConfig.supabase.url || SUPABASE_URL;
+  const key = emailConfig.supabase.key || SUPABASE_ANON_KEY;
+  if (window.supabase && window.supabase.createClient && url && key) {
+    return window.supabase.createClient(url, key);
   }
   return null;
 }
+
+// ---- Contact form validation helpers ----
+const formValidators = {
+  firstName: (value) => {
+    const trimmed = value.trim();
+    if (!trimmed) return 'First name is required';
+    if (trimmed.length < 2) return 'First name must be at least 2 characters';
+    if (trimmed.length > 50) return 'First name must be under 50 characters';
+    if (!/^[a-zA-Z\s'-]+$/.test(trimmed)) return 'First name contains invalid characters';
+    return null;
+  },
+  lastName: (value) => {
+    const trimmed = value.trim();
+    if (!trimmed) return 'Last name is required';
+    if (trimmed.length < 2) return 'Last name must be at least 2 characters';
+    if (trimmed.length > 50) return 'Last name must be under 50 characters';
+    if (!/^[a-zA-Z\s'-]+$/.test(trimmed)) return 'Last name contains invalid characters';
+    return null;
+  },
+  email: (value) => {
+    const trimmed = value.trim();
+    if (!trimmed) return 'Email is required';
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(trimmed)) return 'Please enter a valid email address';
+    if (trimmed.length > 100) return 'Email is too long';
+    return null;
+  },
+  service: (value) => {
+    if (!value) return 'Please select a service';
+    return null;
+  },
+  message: (value) => {
+    const trimmed = value.trim();
+    if (!trimmed) return 'Please describe your project';
+    if (trimmed.length < 10) return 'Message must be at least 10 characters';
+    if (trimmed.length > 2000) return 'Message must be under 2000 characters';
+    return null;
+  }
+};
 
 // ---- Contact form handling ----
 const contactForm = document.getElementById('contactForm');
 const formSuccess = document.getElementById('formSuccess');
 const formError = document.getElementById('formError');
 
+function displayFieldError(fieldId, message) {
+  const field = document.getElementById(fieldId);
+  if (!field) return;
+  field.setAttribute('aria-invalid', 'true');
+  field.style.borderColor = '#ef4444';
+  field.style.boxShadow = '0 0 0 3px rgba(239,68,68,0.15)';
+
+  let errorEl = field.parentElement.querySelector('.field-error');
+  if (!errorEl) {
+    errorEl = document.createElement('p');
+    errorEl.className = 'field-error';
+    errorEl.style.cssText = 'color:#ef4444;font-size:0.85rem;margin-top:6px;margin-bottom:0;';
+    field.parentElement.appendChild(errorEl);
+  }
+  errorEl.textContent = message;
+  errorEl.style.display = 'block';
+}
+
+function clearFieldError(fieldId) {
+  const field = document.getElementById(fieldId);
+  if (!field) return;
+  field.removeAttribute('aria-invalid');
+  field.style.borderColor = '';
+  field.style.boxShadow = '';
+
+  const errorEl = field.parentElement.querySelector('.field-error');
+  if (errorEl) errorEl.style.display = 'none';
+}
+
 if (contactForm) {
   contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    // Hide previous error
     if (formError) formError.style.display = 'none';
 
-    // Validate required fields
-    const required = contactForm.querySelectorAll('[required]');
-    let valid = true;
-    required.forEach(field => {
-      if (!field.value.trim()) {
-        field.style.borderColor = '#ef4444';
-        field.style.boxShadow = '0 0 0 3px rgba(239,68,68,0.15)';
-        valid = false;
+    const fields = ['firstName', 'lastName', 'email', 'service', 'message'];
+    let hasErrors = false;
+
+    fields.forEach(fieldId => {
+      const field = document.getElementById(fieldId);
+      if (!field) return;
+
+      const validator = formValidators[fieldId];
+      if (!validator) return;
+
+      const error = validator(field.value);
+      if (error) {
+        displayFieldError(fieldId, error);
+        hasErrors = true;
       } else {
-        field.style.borderColor = '';
-        field.style.boxShadow = '';
+        clearFieldError(fieldId);
       }
     });
-    if (!valid) return;
+
+    if (hasErrors) return;
 
     const submitBtn = contactForm.querySelector('.form-submit');
     submitBtn.disabled = true;
     submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
 
-    const db = getSupabaseClient();
-    if (!db) {
-      submitBtn.disabled = false;
-      submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Message';
-      if (formError) {
-        formError.textContent = 'Could not connect to database. Please try again.';
-        formError.style.display = 'block';
-      }
-      return;
-    }
+    const formData = {
+      firstName: document.getElementById('firstName').value.trim(),
+      lastName: document.getElementById('lastName').value.trim(),
+      email: document.getElementById('email').value.trim(),
+      company: document.getElementById('company').value.trim() || 'Not specified',
+      service: document.getElementById('service').value,
+      budget: document.getElementById('budget').value || 'Not specified',
+      message: document.getElementById('message').value.trim()
+    };
 
     try {
-      const { error } = await db
-        .from('contact_submissions')
-        .insert({
-          first_name: document.getElementById('firstName').value.trim(),
-          last_name: document.getElementById('lastName').value.trim(),
-          email: document.getElementById('email').value.trim(),
-          company: document.getElementById('company').value.trim() || null,
-          service: document.getElementById('service').value,
-          budget: document.getElementById('budget').value || null,
-          message: document.getElementById('message').value.trim()
-        });
+      let emailSent = false;
+      let emailError = null;
 
-      if (error) throw error;
+      // Try EmailJS first (preferred method)
+      if (window.emailjs && emailConfig.emailjs.serviceId && emailConfig.emailjs.templateId) {
+        try {
+          await window.emailjs.send(
+            emailConfig.emailjs.serviceId,
+            emailConfig.emailjs.templateId,
+            {
+              to_email: 'join.khubaibhaider@gmail.com',
+              from_name: `${formData.firstName} ${formData.lastName}`,
+              from_email: formData.email,
+              company_name: formData.company,
+              service_type: formData.service,
+              budget_range: formData.budget,
+              message: formData.message,
+              reply_to: formData.email
+            }
+          );
+          emailSent = true;
+        } catch (emailErr) {
+          emailError = emailErr;
+          console.warn('EmailJS send failed, trying Supabase...', emailErr);
+        }
+      }
+
+      // Fallback: Try Supabase for data storage
+      const db = getSupabaseClient();
+      if (db && !emailSent) {
+        const { error } = await db.from('contact_submissions').insert({
+          first_name: formData.firstName,
+          last_name: formData.lastName,
+          email: formData.email,
+          company: formData.company === 'Not specified' ? null : formData.company,
+          service: formData.service,
+          budget: formData.budget === 'Not specified' ? null : formData.budget,
+          message: formData.message
+        });
+        if (error) throw error;
+        emailSent = true;
+      }
+
+      // If nothing worked, throw error
+      if (!emailSent) {
+        throw emailError || new Error('No email service configured');
+      }
 
       contactForm.style.display = 'none';
       if (formSuccess) formSuccess.style.display = 'block';
@@ -185,23 +346,40 @@ if (contactForm) {
         if (formSuccess) formSuccess.style.display = 'none';
         submitBtn.disabled = false;
         submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Message';
+        fields.forEach(fieldId => clearFieldError(fieldId));
       }, 5000);
 
     } catch (err) {
       submitBtn.disabled = false;
       submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Message';
       if (formError) {
-        formError.textContent = 'Something went wrong. Please try again.';
+        formError.textContent = 'Unable to send message. Please try again or email us directly.';
         formError.style.display = 'block';
       }
+      console.error('Form submission error:', err);
     }
   });
 
-  // Clear error styles on input
-  contactForm.querySelectorAll('input, select, textarea').forEach(field => {
+  // Real-time field validation on blur
+  const validatedFields = ['firstName', 'lastName', 'email', 'service', 'message'];
+  validatedFields.forEach(fieldId => {
+    const field = document.getElementById(fieldId);
+    if (!field) return;
+
+    field.addEventListener('blur', () => {
+      const validator = formValidators[fieldId];
+      if (!validator) return;
+
+      const error = validator(field.value);
+      if (error) {
+        displayFieldError(fieldId, error);
+      } else {
+        clearFieldError(fieldId);
+      }
+    });
+
     field.addEventListener('input', () => {
-      field.style.borderColor = '';
-      field.style.boxShadow = '';
+      clearFieldError(fieldId);
     });
   });
 }
@@ -264,8 +442,19 @@ window.addEventListener('scroll', () => {
 
   let renderer;
   try {
-    renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+    const webglContext = canvas.getContext('webgl') || canvas.getContext('webgl2');
+    if (!webglContext) {
+      console.warn('WebGL not supported, skipping 3D hero');
+      return;
+    }
+    renderer = new THREE.WebGLRenderer({
+      canvas,
+      alpha: true,
+      antialias: false,
+      powerPreference: 'high-performance'
+    });
   } catch (e) {
+    console.warn('WebGL initialization failed:', e);
     return;
   }
 
@@ -351,10 +540,27 @@ window.addEventListener('scroll', () => {
 
   let running = true;
   let frameId = null;
-  document.addEventListener('visibilitychange', () => {
+
+  const handleVisibilityChange = () => {
     running = !document.hidden;
     if (running && !frameId) animate();
-  });
+  };
+
+  document.addEventListener('visibilitychange', handleVisibilityChange);
+
+  const handleBeforeUnload = () => {
+    running = false;
+    if (frameId) cancelAnimationFrame(frameId);
+    renderer.dispose();
+    pointsGeo.dispose();
+    pointsMat.dispose();
+    lineGeo.dispose();
+    lineMat.dispose();
+    document.removeEventListener('visibilitychange', handleVisibilityChange);
+    window.removeEventListener('beforeunload', handleBeforeUnload);
+  };
+
+  window.addEventListener('beforeunload', handleBeforeUnload);
 
   function animate() {
     if (!running) { frameId = null; return; }

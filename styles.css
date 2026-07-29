@@ -3,43 +3,87 @@
    Graphite + electric cyan/sapphire theme
    ============================================ */
 
-/* ---- CSS Variables ---- */
+/* ---- CSS Variables: Design Tokens ---- */
 :root {
-  --primary: #22D3EE; /* Electric cyan */
+  /* ---- Colors: Brand ---- */
+  --primary: #22D3EE;
   --primary-dark: #0891B2;
-  --secondary: #3B82F6; /* Sapphire blue */
-  --accent: #F59E0B; /* Amber — warm counterpoint, used sparingly */
-  --accent2: #7DD3FC; /* Pale sky */
-  --bg: #0A0E14; /* Graphite near-black */
+  --secondary: #3B82F6;
+  --accent: #F59E0B;
+  --accent2: #7DD3FC;
+
+  /* ---- Colors: Semantic (Dark Theme) ---- */
+  --bg: #0A0E14;
   --bg-2: #0F141B;
   --bg-card: #131920;
   --bg-card-hover: #1A2129;
   --bg-elevated: #171D25;
-  --border: rgba(34,211,238,0.12);
-  --border-hover: rgba(34,211,238,0.28);
-  --text: #E8EDF2; /* Near-white */
+
+  /* ---- Colors: Text ---- */
+  --text: #E8EDF2;
   --text-muted: #9AA7B4;
   --text-dim: #6B7684;
+
+  /* ---- Colors: Interaction ---- */
+  --border: rgba(34,211,238,0.12);
+  --border-hover: rgba(34,211,238,0.28);
+  --error: #ef4444;
+  --error-bg: rgba(239,68,68,0.08);
+  --error-border: rgba(239,68,68,0.3);
+  --success: #10b981;
+  --success-bg: rgba(16,185,129,0.08);
+  --warning: #f59e0b;
+  --warning-bg: rgba(245,158,11,0.08);
+
+  /* ---- Gradients ---- */
   --gradient: linear-gradient(135deg, #22D3EE, #3B82F6);
   --gradient-accent: linear-gradient(135deg, #22D3EE, #7DD3FC);
   --gradient-text: linear-gradient(135deg, #22D3EE, #3B82F6, #7DD3FC);
   --gradient-warm: linear-gradient(135deg, #F59E0B, #22D3EE);
+
+  /* ---- Spacing ---- */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+
+  /* ---- Border Radius ---- */
   --radius: 18px;
   --radius-sm: 10px;
   --radius-xs: 6px;
+
+  /* ---- Shadows ---- */
   --shadow: 0 8px 32px rgba(0,0,0,0.45);
   --shadow-glow: 0 0 48px rgba(34,211,238,0.15);
   --shadow-card: 0 4px 24px rgba(0,0,0,0.35);
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.25);
+
+  /* ---- Transitions ---- */
   --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
   --transition-slow: 0.6s cubic-bezier(0.4,0,0.2,1);
+  --transition-fast: 0.15s cubic-bezier(0.4,0,0.2,1);
+
+  /* ---- Layout ---- */
   --navbar-h: 72px;
+
+  /* ---- Typography ---- */
+  --font-family: 'Inter', system-ui, sans-serif;
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
 }
 
 /* ---- Reset & Base ---- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body {
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: var(--font-family);
   background: var(--bg);
   color: var(--text);
   line-height: 1.6;
@@ -48,6 +92,34 @@ body {
 a { color: inherit; text-decoration: none; }
 ul { list-style: none; }
 img { max-width: 100%; display: block; }
+
+/* ---- Accessibility ---- */
+.skip-to-content {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--primary);
+  color: #000;
+  padding: 8px 16px;
+  z-index: 10000;
+  font-weight: 600;
+  border-radius: 4px;
+}
+.skip-to-content:focus { top: 0; }
+
+*:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
 
 /* ---- Utility ---- */
 .container { width: min(1200px, 100% - 2rem); margin-inline: auto; }
@@ -103,30 +175,43 @@ img { max-width: 100%; display: block; }
   transition: var(--transition);
 }
 .btn:hover::after { background: rgba(255,255,255,0.06); }
+.btn:active { transform: scale(0.98); }
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .btn-primary {
   background: var(--gradient);
   color: #fff;
   box-shadow: 0 4px 20px rgba(59,130,246,0.4);
 }
 .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(59,130,246,0.55); }
+.btn-primary:focus-visible { outline-offset: 4px; }
+
 .btn-outline {
   background: transparent;
   color: var(--text);
   border: 1px solid var(--border);
 }
 .btn-outline:hover { background: rgba(34,211,238,0.08); border-color: var(--border-hover); transform: translateY(-1px); }
+.btn-outline:focus-visible { border-color: var(--primary); }
+
 .btn-white {
   background: #fff;
   color: #0891B2;
   font-weight: 700;
 }
 .btn-white:hover { background: #E6FBFE; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+
 .btn-ghost {
   background: rgba(34,211,238,0.1);
   color: var(--primary);
   border: 1px solid rgba(34,211,238,0.2);
 }
 .btn-ghost:hover { background: rgba(34,211,238,0.18); border-color: rgba(34,211,238,0.4); }
+.btn-ghost:focus-visible { border-color: var(--primary); }
+
 .btn-lg { padding: 16px 36px; font-size: 1.05rem; }
 .btn-sm { padding: 8px 18px; font-size: 0.85rem; }
 
@@ -1181,6 +1266,7 @@ img { max-width: 100%; display: block; }
   outline: none;
   resize: vertical;
 }
+
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
@@ -1188,10 +1274,33 @@ img { max-width: 100%; display: block; }
   box-shadow: 0 0 0 3px rgba(34,211,238,0.15);
   background: rgba(34,211,238,0.04);
 }
+
+.form-group input[aria-invalid="true"],
+.form-group select[aria-invalid="true"],
+.form-group textarea[aria-invalid="true"] {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239,68,68,0.15);
+  background: rgba(239,68,68,0.03);
+}
+
+.form-group input[aria-invalid="true"]:focus,
+.form-group select[aria-invalid="true"]:focus,
+.form-group textarea[aria-invalid="true"]:focus {
+  border-color: #dc2626;
+  box-shadow: 0 0 0 3px rgba(220,38,38,0.2);
+}
+
 .form-group input::placeholder,
 .form-group textarea::placeholder { color: var(--text-dim); }
 .form-group select { cursor: pointer; }
 .form-group select option { background: var(--bg-card); color: var(--text); }
+
+.field-error {
+  display: none;
+  color: #ef4444;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
 .form-submit { width: 100%; justify-content: center; font-size: 1rem; padding: 15px; }
 .form-success {
   display: none;
