@@ -1415,6 +1415,37 @@ img { max-width: 100%; display: block; }
 .privacy-contact-card i { color: var(--primary); width: 16px; }
 .privacy-contact-card a { color: var(--primary); }
 .privacy-contact-card a:hover { text-decoration: underline; }
+
+/* ============================
+   PRICING SECTION
+   ============================ */
+.pricing-section { padding: 80px 0; }
+.pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 28px; margin-top: 60px; }
+.pricing-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 40px 32px; display: flex; flex-direction: column; gap: 24px; transition: var(--transition); position: relative; overflow: hidden; }
+.pricing-card:hover { border-color: var(--border-hover); transform: translateY(-4px); box-shadow: var(--shadow-card); }
+.pricing-card.featured { background: linear-gradient(135deg, rgba(34,211,238,0.08), rgba(59,130,246,0.08)); border-color: var(--primary); box-shadow: 0 0 32px rgba(34,211,238,0.1); }
+.pricing-badge { position: absolute; top: -12px; right: 20px; background: var(--primary); color: #000; padding: 4px 16px; border-radius: 12px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; }
+.pricing-badge.popular { background: linear-gradient(135deg, var(--primary), var(--secondary)); }
+.pricing-amount { display: flex; align-items: baseline; gap: 6px; margin-top: 16px; }
+.pricing-amount .currency { font-size: 1.2rem; color: var(--text-muted); }
+.pricing-amount .amount { font-size: 2.8rem; font-weight: 800; background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.pricing-amount .period { font-size: 0.95rem; color: var(--text-muted); }
+.pricing-desc { color: var(--text-muted); font-size: 0.95rem; margin: 0; }
+.pricing-features { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.pricing-features li { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; color: var(--text); }
+.pricing-features i { color: var(--primary); font-size: 0.85rem; }
+
+/* ============================
+   RESOURCES SECTION
+   ============================ */
+.resources-section { padding: 80px 0; background: var(--bg-2); }
+.resources-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; margin-top: 60px; }
+.resource-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 40px 32px; display: flex; flex-direction: column; gap: 16px; transition: var(--transition); }
+.resource-card:hover { border-color: var(--border-hover); background: var(--bg-card-hover); }
+.resource-icon { width: 56px; height: 56px; background: rgba(34,211,238,0.12); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 1.4rem; }
+.resource-card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 8px; }
+.resource-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.7; margin: 0; }
+
 @media (max-width: 768px) {
   .privacy-layout { grid-template-columns: 1fr; }
   .privacy-toc-inner { position: static; }
@@ -1500,6 +1531,10 @@ img { max-width: 100%; display: block; }
   .services-grid { grid-template-columns: 1fr; }
   .testimonials-grid { grid-template-columns: 1fr; }
   .claude-grid { grid-template-columns: 1fr; }
+  .pricing-grid { grid-template-columns: 1fr; }
+  .resources-grid { grid-template-columns: 1fr; }
   .hero-title { font-size: clamp(2.4rem, 8vw, 3.5rem); }
   .contact-form-wrapper { padding: 28px 24px; }
+  .pricing-card { padding: 28px 20px; }
+  .pricing-amount .amount { font-size: 2rem; }
 }
