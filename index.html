@@ -125,20 +125,15 @@
     <div class="hero-bg">
       <div class="hero-orb orb-1"></div>
       <div class="hero-orb orb-2"></div>
-      <div class="hero-orb orb-3"></div>
       <canvas id="hero3d" class="hero-3d-canvas"></canvas>
       <div class="grid-overlay"></div>
-      <!-- Particles -->
       <div class="hero-particle p1"></div>
       <div class="hero-particle p2"></div>
-      <div class="hero-particle p3"></div>
       <div class="hero-particle p4"></div>
-      <div class="hero-particle p5"></div>
-      <div class="hero-particle p6"></div>
     </div>
     <div class="container hero-content">
       <div class="hero-badge">
-        <i class="fa-solid fa-bolt"></i> AI-Powered Agency
+        <i class="fa-solid fa-bolt"></i> AI Engineering Studio
       </div>
       <h1 class="hero-title">
         Automate. Integrate.<br />
@@ -157,15 +152,13 @@
           <span class="stat-number">30+</span>
           <span class="stat-label">Projects Delivered</span>
         </div>
-        <div class="stat-divider"></div>
         <div class="stat">
           <span class="stat-number">5+</span>
           <span class="stat-label">International Clients</span>
         </div>
-        <div class="stat-divider"></div>
         <div class="stat">
           <span class="stat-number">80%</span>
-          <span class="stat-label">Time Saved on Average</span>
+          <span class="stat-label">Average Time Saved</span>
         </div>
       </div>
     </div>
@@ -180,16 +173,16 @@
     <div class="container">
       <p class="tech-bar-label">Powered by the world's best AI tools</p>
       <div class="tech-logos">
-        <span class="tech-chip"><i class="fa-solid fa-brain" style="color:#f59e0b;"></i> Claude API</span>
-        <span class="tech-chip"><i class="fa-solid fa-robot" style="color:#10a37f;"></i> OpenAI GPT-4</span>
-        <span class="tech-chip"><i class="fa-solid fa-gears" style="color:#ef4444;"></i> n8n</span>
-        <span class="tech-chip"><i class="fa-solid fa-bolt" style="color:#f97316;"></i> Make</span>
-        <span class="tech-chip"><i class="fa-brands fa-microsoft" style="color:#0078d4;"></i> SharePoint</span>
-        <span class="tech-chip"><i class="fa-solid fa-microphone" style="color:#8b5cf6;"></i> Deepgram</span>
-        <span class="tech-chip"><i class="fa-solid fa-database" style="color:#38bdf8;"></i> Pinecone</span>
-        <span class="tech-chip"><i class="fa-solid fa-link" style="color:#6366f1;"></i> LangChain</span>
-        <span class="tech-chip"><i class="fa-brands fa-aws" style="color:#ff9900;"></i> AWS</span>
-        <span class="tech-chip"><i class="fa-solid fa-cloud" style="color:#34d399;"></i> Supabase</span>
+        <span class="tech-chip"><i class="fa-solid fa-brain"></i> Claude API</span>
+        <span class="tech-chip"><i class="fa-solid fa-robot"></i> OpenAI GPT-4</span>
+        <span class="tech-chip"><i class="fa-solid fa-diagram-project"></i> n8n</span>
+        <span class="tech-chip"><i class="fa-solid fa-bolt"></i> Make</span>
+        <span class="tech-chip"><i class="fa-brands fa-microsoft"></i> SharePoint</span>
+        <span class="tech-chip"><i class="fa-solid fa-microphone"></i> Deepgram</span>
+        <span class="tech-chip"><i class="fa-solid fa-database"></i> Pinecone</span>
+        <span class="tech-chip"><i class="fa-solid fa-link"></i> LangChain</span>
+        <span class="tech-chip"><i class="fa-brands fa-aws"></i> AWS</span>
+        <span class="tech-chip"><i class="fa-solid fa-cloud"></i> Supabase</span>
       </div>
     </div>
   </div>
@@ -205,8 +198,15 @@
       <div class="services-grid">
 
         <div class="service-card" data-aos="fade-up" data-delay="0">
-          <div class="service-icon" style="--color: #22D3EE;">
-            <i class="fa-solid fa-database"></i>
+          <!-- Retrieval: a document being queried -->
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M7.5 3.5h6L17 7v6" />
+              <path d="M4 6.5h6.5L14 10v9.5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6.5Z" />
+              <path d="M10.5 6.5V10H14" />
+              <circle cx="9" cy="14" r="2.6" />
+              <path d="m10.9 15.9 1.9 1.9" />
+            </svg>
           </div>
           <h3>RAG Agents</h3>
           <p>Retrieval-Augmented Generation systems that let your team query internal documents, PDFs, and knowledge bases with natural language — instantly.</p>
@@ -214,8 +214,15 @@
         </div>
 
         <div class="service-card" data-aos="fade-up" data-delay="100">
-          <div class="service-icon" style="--color: #3B82F6;">
-            <i class="fa-solid fa-microphone-lines"></i>
+          <!-- Voice: a live speech waveform -->
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+              <path d="M12 3.5v17" />
+              <path d="M8.25 6.75v10.5" />
+              <path d="M15.75 6.75v10.5" />
+              <path d="M4.5 10v4" />
+              <path d="M19.5 10v4" />
+            </svg>
           </div>
           <h3>Voice AI Agents</h3>
           <p>Hands-free intelligent assistants that understand commands, answer questions, and trigger workflows — all through natural speech in 20+ languages.</p>
@@ -223,8 +230,14 @@
         </div>
 
         <div class="service-card" data-aos="fade-up" data-delay="200">
-          <div class="service-icon" style="--color: #0EA5E9;">
-            <i class="fa-brands fa-microsoft"></i>
+          <!-- Integration: two systems wired together -->
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2.75" y="3.25" width="8" height="8" rx="1.75" />
+              <rect x="13.25" y="12.75" width="8" height="8" rx="1.75" />
+              <path d="M10.75 7.25h4.5a2 2 0 0 1 2 2v3.5" />
+              <path d="M6.75 11.25v3.5a2 2 0 0 0 2 2h4.5" />
+            </svg>
           </div>
           <h3>SharePoint Integration</h3>
           <p>Connect AI agents directly to your Microsoft 365 environment — automate document management, approvals, and team collaboration at scale.</p>
@@ -232,8 +245,17 @@
         </div>
 
         <div class="service-card" data-aos="fade-up" data-delay="300">
-          <div class="service-icon" style="--color: #7DD3FC;">
-            <i class="fa-solid fa-gears"></i>
+          <!-- Automation: a trigger branching into parallel steps -->
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="4.25" cy="12" r="2" />
+              <circle cx="12" cy="12" r="2" />
+              <circle cx="19.75" cy="6.75" r="2" />
+              <circle cx="19.75" cy="17.25" r="2" />
+              <path d="M6.25 12H10" />
+              <path d="m13.7 10.8 4.1-2.9" />
+              <path d="m13.7 13.2 4.1 2.9" />
+            </svg>
           </div>
           <h3>Workflow Automation</h3>
           <p>End-to-end automation pipelines using n8n, Make, and custom agents that eliminate repetitive tasks and reduce human error dramatically.</p>
@@ -241,8 +263,13 @@
         </div>
 
         <div class="service-card" data-aos="fade-up" data-delay="400">
-          <div class="service-icon" style="--color: #06B6D4;">
-            <i class="fa-solid fa-robot"></i>
+          <!-- Custom agent: a purpose-built core wired into your stack -->
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="6.5" y="6.5" width="11" height="11" rx="2.5" />
+              <circle cx="12" cy="12" r="2.25" />
+              <path d="M12 2.75v3.75M12 17.5v3.75M2.75 12h3.75M17.5 12h3.75" />
+            </svg>
           </div>
           <h3>Custom AI Agents</h3>
           <p>Tailor-built AI agents for your specific industry needs — from customer support bots to internal ops assistants that never sleep.</p>
@@ -250,8 +277,12 @@
         </div>
 
         <div class="service-card" data-aos="fade-up" data-delay="500">
-          <div class="service-icon" style="--color: #F59E0B;">
-            <i class="fa-solid fa-chart-line"></i>
+          <!-- Consulting: direction and strategy -->
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="8.75" />
+              <path d="m15.6 8.4-2.2 5.2-5.2 2.2 2.2-5.2 5.2-2.2Z" />
+            </svg>
           </div>
           <h3>AI Consulting</h3>
           <p>Strategic roadmaps, audits, and implementation plans to help your organization adopt AI effectively, responsibly, and profitably.</p>
@@ -282,8 +313,12 @@
       <div class="claude-grid">
 
         <div class="claude-card" data-aos="fade-up" data-delay="0">
-          <div class="claude-card-icon" style="background:rgba(255,140,0,0.12); color:var(--primary);">
-            <i class="fa-solid fa-comments"></i>
+          <!-- Chat agents: a multi-turn exchange -->
+          <div class="claude-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 8.25A2.25 2.25 0 0 1 5.25 6h8A2.25 2.25 0 0 1 15.5 8.25v3.5A2.25 2.25 0 0 1 13.25 14H8.5L5 16.75V14a2 2 0 0 1-2-2V8.25Z" />
+              <path d="M18 10.5h.75A2.25 2.25 0 0 1 21 12.75v3.5a2.25 2.25 0 0 1-2.25 2.25H14l-2.5 2v-2" />
+            </svg>
           </div>
           <h3>Claude Chat Agents</h3>
           <p>Customer-facing and internal chat agents powered by Claude. Understands context deeply, maintains multi-turn conversations, and escalates to humans when needed.</p>
@@ -295,8 +330,15 @@
         </div>
 
         <div class="claude-card" data-aos="fade-up" data-delay="100">
-          <div class="claude-card-icon" style="background:rgba(255,193,7,0.1); color:var(--accent);">
-            <i class="fa-solid fa-file-magnifying-glass"></i>
+          <!-- Document intelligence: structured answers pulled from a page -->
+          <div class="claude-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 4.5h7.5L18 10v9.5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-15Z" />
+              <path d="M12.5 4.5V10H18" />
+              <path d="M8 12.5h4.5" />
+              <path d="M8 15.5h6.5" />
+              <path d="M8 18.5h3" />
+            </svg>
           </div>
           <h3>Document Intelligence</h3>
           <p>Claude reads, summarizes, extracts, and reasons over large documents — contracts, reports, manuals — returning structured answers with source citations.</p>
@@ -308,8 +350,16 @@
         </div>
 
         <div class="claude-card" data-aos="fade-up" data-delay="200">
-          <div class="claude-card-icon" style="background:rgba(255,179,71,0.1); color:var(--accent2);">
-            <i class="fa-solid fa-code-branch"></i>
+          <!-- Agentic tool use: a model reaching out to external tools -->
+          <div class="claude-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="8.5" r="3" />
+              <path d="M12 11.5v3.25" />
+              <path d="M5.25 19.25v-2a2 2 0 0 1 2-2h9.5a2 2 0 0 1 2 2v2" />
+              <rect x="2.75" y="19.25" width="5" height="2.75" rx="0.75" />
+              <rect x="16.25" y="19.25" width="5" height="2.75" rx="0.75" />
+              <rect x="9.5" y="19.25" width="5" height="2.75" rx="0.75" />
+            </svg>
           </div>
           <h3>Agentic Tool Use</h3>
           <p>Claude agents that call APIs, browse web pages, write and run code, and chain multi-step tasks autonomously — all with safety and human oversight built in.</p>
