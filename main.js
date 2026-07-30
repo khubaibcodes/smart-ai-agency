@@ -1,5 +1,5 @@
 /* ============================================
-  Smart AI Agency — Main JavaScript
+  Smart AI Solutions — Main JavaScript
   ============================================ */
 
 // ---- Performance Monitoring ----
@@ -299,7 +299,7 @@ if (contactForm) {
             emailConfig.emailjs.serviceId,
             emailConfig.emailjs.templateId,
             {
-              to_email: 'join.khubaibhaider@gmail.com',
+              to_email: 'smrtaisolutions@gmail.com',
               from_name: `${formData.firstName} ${formData.lastName}`,
               from_email: formData.email,
               company_name: formData.company,

@@ -1,4 +1,4 @@
-# Smart AI Agency robots.txt
+# Smart AI Solutions robots.txt
 # Search engine crawler instructions
 
 User-agent: *

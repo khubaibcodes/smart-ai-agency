@@ -1,5 +1,5 @@
 /**
- * Smart AI Agency — Environment Configuration
+ * Smart AI Solutions — Environment Configuration
  *
  * IMPORTANT: Create a .env file in the root directory with your API keys.
  * For development, copy .env.example to .env and fill in your values.
@@ -63,11 +63,11 @@ const CONFIG = loadConfig().catch(() => getDefaultConfig());
 CONFIG.then(config => {
   if (!config.VITE_SUPABASE_URL || !config.VITE_SUPABASE_ANON_KEY) {
     console.warn(
-      '[Smart AI Agency] Supabase credentials not configured. ' +
+      '[Smart AI Solutions] Supabase credentials not configured. ' +
       'Contact form submissions will be disabled. ' +
       'Create a .env file with VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY.'
     );
   }
 }).catch(err => {
-  console.error('[Smart AI Agency] Configuration load failed:', err);
+  console.error('[Smart AI Solutions] Configuration load failed:', err);
 });
