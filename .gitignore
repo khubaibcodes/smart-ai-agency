@@ -13,6 +13,8 @@ yarn.lock
 dist/
 build/
 .cache/
+.next/
+out/
 
 # Logs
 *.log
