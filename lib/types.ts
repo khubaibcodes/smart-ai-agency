@@ -91,6 +91,38 @@ export interface LegalSection {
   list?: string[];
 }
 
+/** One step in an illustrative agent run shown in the hero console. */
+export interface AgentTraceStep {
+  tool: string;
+  detail: string;
+  /** Displayed duration in ms — illustrative, not measured. */
+  ms: number;
+}
+
+export interface AgentTrace {
+  id: string;
+  label: string;
+  query: string;
+  steps: AgentTraceStep[];
+  answer: string;
+  citations: string[];
+}
+
+/** A node in the workflow diagram. Position is a percentage of the viewBox. */
+export interface WorkflowNode {
+  id: string;
+  label: string;
+  sublabel: string;
+  icon: IconName;
+  x: number;
+  y: number;
+}
+
+export interface WorkflowEdge {
+  from: string;
+  to: string;
+}
+
 export interface ContactFormPayload {
   firstName: string;
   lastName: string;
