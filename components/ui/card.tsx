@@ -1,15 +1,16 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
+/**
+ * Base surface for every section card.
+ *
+ * Uses the shared `.panel` treatment — hairline border, inner top highlight,
+ * backdrop blur, no drop shadow — so Pricing, Testimonials, Team, Mission and
+ * Resources all pick up the new depth language from one place.
+ */
 function Card({ className, ...props }: React.ComponentProps<"div">) {
   return (
-    <div
-      className={cn(
-        "rounded-xl border border-border bg-card text-card-foreground shadow-sm",
-        className
-      )}
-      {...props}
-    />
+    <div className={cn("panel text-card-foreground", className)} {...props} />
   );
 }
 
