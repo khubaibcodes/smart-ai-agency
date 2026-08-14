@@ -27,7 +27,10 @@ export default function KineticText({
 }) {
   const reduced = useReducedMotion();
   const words = text.split(" ");
-  const accent = new Set((highlight ?? []).map((w) => w.toLowerCase()));
+  // Normalise both sides so callers can pass "Automatically." or "automatically"
+  // and still get a match.
+  const normalise = (word: string) => word.toLowerCase().replace(/[.,!?;:]/g, "");
+  const accent = new Set((highlight ?? []).map(normalise));
 
   if (reduced) {
     return (
@@ -35,7 +38,7 @@ export default function KineticText({
         {words.map((word, i) => (
           <span
             key={`${word}-${i}`}
-            className={accent.has(word.toLowerCase().replace(/[.,]/g, "")) ? "gradient-text" : undefined}
+            className={accent.has(normalise(word)) ? "gradient-text" : undefined}
           >
             {word}
             {i < words.length - 1 ? " " : ""}
@@ -55,7 +58,7 @@ export default function KineticText({
           <motion.span
             className={cn(
               "inline-block",
-              accent.has(word.toLowerCase().replace(/[.,]/g, "")) && "gradient-text",
+              accent.has(normalise(word)) && "gradient-text",
             )}
             initial={{ y: "108%" }}
             animate={{ y: 0 }}

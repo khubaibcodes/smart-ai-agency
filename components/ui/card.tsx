@@ -5,8 +5,8 @@ import { cn } from "@/lib/utils";
  * Base surface for every section card.
  *
  * Uses the shared `.panel` treatment — hairline border, inner top highlight,
- * backdrop blur, no drop shadow — so Pricing, Testimonials, Team, Mission and
- * Resources all pick up the new depth language from one place.
+ * backdrop blur, no drop shadow — so Testimonials, Team, Mission and Resources
+ * all pick up the new depth language from one place.
  */
 function Card({ className, ...props }: React.ComponentProps<"div">) {
   return (

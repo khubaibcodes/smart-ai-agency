@@ -29,13 +29,12 @@ export const AGENCY = {
 export const NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "Services", href: "/services" },
-  { label: "Pricing", href: "/pricing" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ] as const;
 
 /** Homepage section ids observed by navbar scroll-spy. */
-export const HOME_SCROLL_SECTIONS = ["home", "services", "pricing", "contact"] as const;
+export const HOME_SCROLL_SECTIONS = ["home", "services", "contact"] as const;
 export type HomeScrollSection = (typeof HOME_SCROLL_SECTIONS)[number];
 
 export const FOOTER_SERVICE_LINKS = SERVICES.map((service) => ({
@@ -45,19 +44,26 @@ export const FOOTER_SERVICE_LINKS = SERVICES.map((service) => ({
 
 export const FOOTER_COMPANY_LINKS = [
   { label: "About Us", href: "/about" },
-  { label: "Pricing", href: "/pricing" },
   { label: "Contact", href: "/contact" },
   { label: "Privacy Policy", href: "/privacy" },
   { label: "Terms of Service", href: "/terms" },
 ] as const;
 
+/**
+ * Platform names only — never model version strings. Versions go stale within
+ * months and a dated model name on an AI agency's site undermines everything
+ * else on the page.
+ */
 export const TECH_STACK = [
   "Claude API",
-  "OpenAI GPT-4",
+  "OpenAI",
   "n8n",
   "Make",
   "SharePoint",
+  "WhatsApp Business",
+  "Twilio",
   "Deepgram",
+  "ElevenLabs",
   "Pinecone",
   "LangChain",
   "AWS",

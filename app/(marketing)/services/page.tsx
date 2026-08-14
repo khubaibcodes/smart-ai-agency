@@ -8,7 +8,7 @@ import SectionBadge from "@/components/ui/section-badge";
 export const metadata = createPageMetadata({
   title: "AI Services",
   description:
-    "RAG Agents, Voice AI, Claude-powered agents, n8n automation, SharePoint integration, and custom AI solutions.",
+    "Voice agents that answer every call, WhatsApp and email agents that reply instantly, instant answers from your own documents, and fully-managed automation.",
   path: "/services",
 });
 
@@ -24,10 +24,10 @@ export default function ServicesPage() {
         }
         title={
           <>
-            Our <span className="gradient-text">AI Services</span>
+            The work you stop <span className="gradient-text">doing by hand</span>
           </>
         }
-        description="Every solution we build is designed to save time, reduce friction, and scale with your business."
+        description="Calls answered, messages replied to, inboxes cleared, documents searchable. Pick the job that costs your team the most time — we'll start there."
       />
       <ServiceDetailSection />
       <CTASection />

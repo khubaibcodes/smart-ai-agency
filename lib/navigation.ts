@@ -3,7 +3,6 @@ import type { HomeScrollSection } from "@/lib/constants/agency";
 const ROUTE_TO_HOME_SECTION: Partial<Record<string, HomeScrollSection>> = {
   "/": "home",
   "/services": "services",
-  "/pricing": "pricing",
   "/contact": "contact",
 };
 

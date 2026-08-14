@@ -218,7 +218,9 @@ export default function AgentConsole({ className }: { className?: string }) {
             onClick={() => setIndex(i)}
             aria-pressed={i === index}
             className={cn(
-              "flex-1 rounded-md px-2 py-1.5 font-mono text-[10px] uppercase tracking-[0.14em] transition-colors",
+              // min-h-11 keeps the tap target at 44px on touch devices; the
+              // label itself is much smaller than that.
+              "flex min-h-11 flex-1 items-center justify-center rounded-md px-2 py-2 font-mono text-[10px] uppercase tracking-[0.14em] transition-colors",
               i === index
                 ? "bg-brand-primary/10 text-brand-primary"
                 : "text-brand-dim hover:bg-secondary hover:text-[var(--brand-text)]",

@@ -9,7 +9,10 @@ export type IconName =
   | "zap"
   | "settings"
   | "chart-line"
-  | "file-text";
+  | "file-text"
+  | "message-circle"
+  | "mail"
+  | "handshake";
 
 export interface ServiceHighlight {
   id: string;
@@ -23,17 +26,6 @@ export interface ClaudeOffering {
   title: string;
   description: string;
   tags: string[];
-}
-
-export interface PricingTier {
-  name: string;
-  price: string;
-  period: string;
-  description: string;
-  featured: boolean;
-  features: string[];
-  cta: string;
-  href: string;
 }
 
 export interface Testimonial {

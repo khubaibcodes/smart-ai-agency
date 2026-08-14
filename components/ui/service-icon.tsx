@@ -5,8 +5,11 @@ import {
   ChartLine,
   Database,
   FileText,
+  Handshake,
   Layers,
   Lightbulb,
+  Mail,
+  MessageCircle,
   Mic,
   Settings2,
   Workflow,
@@ -26,6 +29,9 @@ export const ICON_MAP: Record<IconName | "settings" | "brain", LucideIcon> = {
   settings: Settings2,
   "chart-line": ChartLine,
   "file-text": FileText,
+  "message-circle": MessageCircle,
+  mail: Mail,
+  handshake: Handshake,
 };
 
 export function ServiceIcon({

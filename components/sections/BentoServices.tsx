@@ -83,7 +83,7 @@ export default function BentoServices() {
 
               <Link
                 href={feature.href}
-                className="mt-auto inline-flex items-center gap-2 pt-6 text-sm font-semibold text-brand-primary"
+                className="mt-auto inline-flex min-h-11 items-center gap-2 pt-6 text-sm font-semibold text-brand-primary"
               >
                 Explore {feature.title}
                 <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
@@ -115,7 +115,7 @@ export default function BentoServices() {
 
                 <Link
                   href={service.href}
-                  className="mt-auto inline-flex items-center gap-1.5 pt-5 text-[13px] font-semibold text-brand-primary/90 transition-colors hover:text-brand-primary"
+                  className="mt-auto inline-flex min-h-11 items-center gap-1.5 pt-5 text-[13px] font-semibold text-brand-primary/90 transition-colors hover:text-brand-primary"
                 >
                   Learn more
                   <ArrowUpRight className="size-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />

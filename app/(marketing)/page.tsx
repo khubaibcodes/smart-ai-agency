@@ -4,7 +4,6 @@ import TechBar from "@/components/sections/TechBar";
 import BentoServices from "@/components/sections/BentoServices";
 import WorkflowGraph from "@/components/sections/WorkflowGraph";
 import ClaudeSection from "@/components/sections/ClaudeSection";
-import PricingSection from "@/components/sections/PricingSection";
 import TestimonialsSection from "@/components/sections/TestimonialsSection";
 import ResourcesSection from "@/components/sections/ResourcesSection";
 import CTASection from "@/components/sections/CTASection";
@@ -12,7 +11,7 @@ import CTASection from "@/components/sections/CTASection";
 export const metadata = createPageMetadata({
   title: "Smart AI Solutions | Intelligent AI Automation",
   description:
-    "Expert AI automation agency — RAG agents, Voice AI, Claude-powered bots, n8n workflows, and SharePoint integration for international clients.",
+    "AI agents that answer your calls, reply to WhatsApp and email, and clear repetitive admin around the clock. Voice, messaging, document and workflow automation for growing businesses.",
   path: "/",
 });
 
@@ -29,7 +28,6 @@ export default function HomePage() {
       <BentoServices />
       <WorkflowGraph />
       <ClaudeSection />
-      <PricingSection />
       <TestimonialsSection />
       <CTASection />
       <ResourcesSection />
