@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Check, CornerDownLeft, Loader2 } from "lucide-react";
 import { AGENT_TRACES } from "@/lib/constants";
+import type { AgentTrace } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 const QUERY_CPS = 26; // ms per character while typing the question
@@ -20,7 +21,14 @@ type Phase = "query" | "steps" | "answer" | "done";
  * model call. Pretending otherwise would be the exact overclaiming we tell
  * clients to avoid.
  */
-export default function AgentConsole({ className }: { className?: string }) {
+export default function AgentConsole({
+  className,
+  traces = AGENT_TRACES,
+}: {
+  className?: string;
+  /** Defaults to the full set. Pass a single trace to scope the console to one flow. */
+  traces?: AgentTrace[];
+}) {
   const hostRef = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
   const [reduced, setReduced] = useState(false);
@@ -31,7 +39,7 @@ export default function AgentConsole({ className }: { className?: string }) {
   const [stepsDone, setStepsDone] = useState(0);
   const [answerChars, setAnswerChars] = useState(0);
 
-  const trace = AGENT_TRACES[index];
+  const trace = traces[index] ?? traces[0];
 
   useEffect(() => {
     setReduced(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
@@ -93,9 +101,13 @@ export default function AgentConsole({ className }: { className?: string }) {
       }
 
       setPhase("done");
+      // A single-trace console holds on the finished state instead of
+      // restarting — replaying one flow on a loop is just noise.
+      if (traces.length < 2) return;
+
       await wait(HOLD_MS);
       if (cancelled) return;
-      setIndex((current) => (current + 1) % AGENT_TRACES.length);
+      setIndex((current) => (current + 1) % traces.length);
     };
 
     void run();
@@ -104,7 +116,7 @@ export default function AgentConsole({ className }: { className?: string }) {
       cancelled = true;
       clearTimeout(timer);
     };
-  }, [index, inView, reduced, trace]);
+  }, [index, inView, reduced, trace, traces]);
 
   // Reduced motion / not yet visible: show the completed run, no animation.
   const isStatic = reduced;
@@ -209,9 +221,9 @@ export default function AgentConsole({ className }: { className?: string }) {
         </div>
       </div>
 
-      {/* trace switcher */}
-      <div className="flex gap-1 border-t border-[var(--hairline)] p-2">
-        {AGENT_TRACES.map((item, i) => (
+      {/* trace switcher — pointless with a single trace */}
+      <div className={cn("gap-1 border-t border-[var(--hairline)] p-2", traces.length > 1 ? "flex" : "hidden")}>
+        {traces.map((item, i) => (
           <button
             key={item.id}
             type="button"

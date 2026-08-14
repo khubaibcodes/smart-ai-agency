@@ -48,6 +48,10 @@ Key rules:
   and keep it in `lib/constants/`, not in JSX
 - Avoid unqualified absolutes ("never hallucinates", "100% accurate")
 - Don't reintroduce fixed pricing tiers — cost is answered in the contact FAQ
+- **Every market statistic carries its source on screen.** Use the `CitedStat`
+  type, which makes `source` required and separates published `research` from
+  industry `estimate` — the UI labels estimates so they can't pass as findings.
+  Never present a third-party figure as our own research
 
 **Motion rules**
 

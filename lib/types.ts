@@ -100,6 +100,26 @@ export interface AgentTrace {
   citations: string[];
 }
 
+/**
+ * A cited market statistic.
+ *
+ * `source` is required by design: no number appears on the site without one,
+ * and `kind` distinguishes published research from industry estimates so the
+ * copy can hedge honestly rather than presenting both as equally solid.
+ */
+export interface CitedStat {
+  value: string;
+  label: string;
+  source: string;
+  kind: "research" | "estimate";
+}
+
+export interface BookingStep {
+  title: string;
+  description: string;
+  icon: IconName;
+}
+
 /** A node in the workflow diagram. Position is a percentage of the viewBox. */
 export interface WorkflowNode {
   id: string;

@@ -4,3 +4,4 @@ export * from "./services";
 export * from "./legal";
 export * from "./demo";
 export * from "./media";
+export * from "./booking";
