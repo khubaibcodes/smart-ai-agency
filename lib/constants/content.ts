@@ -2,7 +2,6 @@ import type {
   ClaudeOffering,
   IconName,
   MissionValue,
-  PricingTier,
   ResourceCard,
   ServiceHighlight,
   TeamMember,
@@ -11,13 +10,19 @@ import type {
 } from "@/lib/types";
 import { SERVICES } from "./services";
 
+/**
+ * Which services lead the homepage. Voice, messaging and email first —
+ * they're what prospective clients ask for by name. The bento grid sizes
+ * tiles by position, so the order here is a layout decision as well as an
+ * editorial one, and the count should stay at six.
+ */
 const HOME_SERVICE_IDS = [
-  "rag",
   "voice",
-  "sharepoint",
+  "whatsapp",
+  "email",
+  "rag",
+  "managed",
   "automation",
-  "custom",
-  "consulting",
 ] as const;
 
 export const HOME_SERVICE_HIGHLIGHTS: ServiceHighlight[] = HOME_SERVICE_IDS.map((id) => {
@@ -31,93 +36,78 @@ export const HOME_SERVICE_HIGHLIGHTS: ServiceHighlight[] = HOME_SERVICE_IDS.map(
   };
 });
 
+/**
+ * Homepage hero copy.
+ *
+ * Written for a business owner scanning for ten seconds, not an engineer. The
+ * headline names three concrete outcomes; mechanism ("RAG", "vector search")
+ * is deliberately absent and appears later as supporting proof.
+ */
+export const HOME_HERO = {
+  eyebrow: "AI Automation Studio · Available worldwide",
+  /** Each line animates in separately. Last line renders in the amber gradient. */
+  headline: ["Answer every call.", "Clear every inbox.", "Automatically."],
+  subtitle:
+    "AI agents that answer your phones, reply to your messages, and take care of the repetitive admin — around the clock, in any language. Your team gets their week back.",
+  primaryCta: { label: "Book a Free Call", href: "/contact" },
+  secondaryCta: { label: "See What We Automate", href: "/services" },
+} as const;
+
+/**
+ * Header copy for the Claude section. Lives here rather than inline in the
+ * component so model-name policy is enforced in one place — the previous
+ * version hardcoded two model version strings directly in the JSX.
+ */
+export const CLAUDE_SECTION = {
+  titleLead: "Built with",
+  /** Rendered in the amber gradient. */
+  titleAccent: "Claude API",
+  titleTail: "— Anthropic's Most Advanced AI",
+  subtitle:
+    "We build on Anthropic's most advanced AI models, and keep every deployment current as new versions ship. Agents that cite their sources, admit what they don't know, and hand over to a person when the situation calls for it.",
+} as const;
+
+/**
+ * No model version numbers here. Anthropic ships new models often enough that
+ * any hardcoded name reads as dated within months — and a stale model name on
+ * an AI agency's site is the first thing a technical buyer notices.
+ */
 export const CLAUDE_OFFERINGS: ClaudeOffering[] = [
   {
-    title: "Claude Chat Agents",
+    title: "Chat Agents That Know Your Business",
     description:
-      "Customer-facing and internal chat agents powered by Claude. Understands context deeply, maintains multi-turn conversations, and escalates to humans when needed.",
-    tags: ["Claude Sonnet 4.6", "Multi-turn", "Human handoff"],
+      "Customer-facing and internal chat that actually understands context — holds a real conversation, remembers what was said, and hands over to a person the moment it should.",
+    tags: ["Multi-turn", "Human handoff", "Slack / Teams"],
   },
   {
     title: "Document Intelligence",
     description:
-      "Claude reads, summarizes, extracts, and reasons over large documents — contracts, reports, manuals — returning structured answers with source citations.",
-    tags: ["PDF / Word / Excel", "Citations", "200K context"],
+      "Reads, summarises and reasons over contracts, reports and manuals, returning structured answers with the source attached — so nobody has to take the AI's word for it.",
+    tags: ["PDF / Word / Excel", "Source citations", "Long documents"],
   },
   {
-    title: "Agentic Tool Use",
+    title: "Agents That Take Action",
     description:
-      "Claude agents that call APIs, browse web pages, write and run code, and chain multi-step tasks autonomously — all with safety and human oversight built in.",
+      "Not just answers. Agents that call your APIs, update records, chain multi-step work, and stop for human approval where the stakes justify it.",
     tags: ["Tool calling", "Multi-step", "API integration"],
   },
   {
-    title: "Safe Enterprise AI",
+    title: "Safety You Can Defend",
     description:
-      "Anthropic's Constitutional AI makes Claude the safest choice for enterprise. We configure system prompts, guardrails, and data handling policies for full compliance.",
-    tags: ["Constitutional AI", "GDPR ready", "Private deploy"],
+      "Anthropic builds Claude with safety as the product. We add the rest: guardrails, system prompts, data-handling policy, and an escalation path to a human.",
+    tags: ["Guardrails", "GDPR ready", "Private deploy"],
   },
   {
-    title: "Multilingual AI",
+    title: "Speaks Your Customers' Language",
     description:
-      "Claude speaks 95+ languages fluently. Deploy support agents, document processors, or chatbots that seamlessly switch languages mid-conversation.",
-    tags: ["95+ languages", "Auto-detect", "Cultural context"],
+      "Support agents, document processors and chatbots that switch language mid-conversation without losing the thread — useful whether you serve Auckland or Abu Dhabi.",
+    tags: ["Multilingual", "Auto-detect", "Cultural context"],
   },
   {
-    title: "Claude + Your Stack",
+    title: "Fits Your Existing Stack",
     description:
-      "We integrate Claude into your existing tools — Slack, Teams, Notion, CRM, or custom platforms — via REST API or SDK with full error handling and retries.",
+      "We integrate with the tools you already run — Slack, Teams, Notion, your CRM or a custom platform — with proper error handling and retries, not a demo script.",
     tags: ["SDK integration", "Slack / Teams", "Webhook ready"],
-  },
-];
-
-export const PRICING_TIERS: PricingTier[] = [
-  {
-    name: "Starter",
-    price: "$2,500",
-    period: "/project",
-    description: "Focused automation for a single workflow",
-    featured: false,
-    features: [
-      "Single workflow or RAG agent",
-      "2–3 week delivery",
-      "Email support for 30 days",
-      "Documentation & handover",
-      "One revision round",
-    ],
-    cta: "Get Started",
-    href: "/contact",
-  },
-  {
-    name: "Professional",
-    price: "$7,500",
-    period: "/project",
-    description: "Multi-system integration with AI agents",
-    featured: true,
-    features: [
-      "Multi-agent or voice + automation stack",
-      "4–6 week delivery",
-      "Slack/Teams integration included",
-      "90 days priority support",
-      "Two revision rounds",
-    ],
-    cta: "Book Discovery Call",
-    href: "/contact",
-  },
-  {
-    name: "Enterprise",
-    price: "$15k",
-    period: "+/project",
-    description: "Full-scale enterprise automation",
-    featured: false,
-    features: [
-      "SharePoint + MS365 integration",
-      "8–12 weeks delivery",
-      "Dedicated account manager",
-      "1 year support & retainer",
-      "Custom security & compliance",
-    ],
-    cta: "Contact Sales",
-    href: "/contact",
   },
 ];
 
@@ -126,7 +116,7 @@ export const TESTIMONIALS: Testimonial[] = [
     name: "Ayesha",
     role: "Operations Director, UK",
     quote:
-      "The RAG agent Smart AI built cut our document search time from hours to seconds. Our team can't imagine working without it.",
+      "The document agent Smart AI built cut our search time from hours to seconds. Our team can't imagine working without it.",
     featured: false,
   },
   {
@@ -147,25 +137,25 @@ export const TESTIMONIALS: Testimonial[] = [
 
 export const RESOURCE_CARDS: ResourceCard[] = [
   {
-    title: "RAG Agent Implementation Guide",
+    title: "Where to Start With AI",
     description:
-      "Step-by-step guide to building retrieval-augmented generation systems. Includes architecture, best practices, and common pitfalls.",
+      "The five jobs most businesses automate first, why they pay back fastest, and how to tell which one applies to you.",
     href: "/contact?topic=guide",
-    cta: "Download Guide",
+    cta: "Get the Guide",
     icon: "file-text",
   },
   {
     title: "Case Study: 80% Time Savings",
     description:
-      "How a mid-market company automated 40 manual processes using AI agents. ROI analysis and lessons learned included.",
+      "How a mid-market company handed 40 manual processes to AI agents. What it cost, what it saved, and what we'd do differently.",
     href: "/contact?topic=casestudy",
     cta: "Read Case Study",
     icon: "chart-line",
   },
   {
-    title: "AI Automation Checklist",
+    title: "Is Your Workflow Ready?",
     description:
-      "Pre-project audit checklist: Is your workflow ready for automation? Security, compliance, and technical requirements.",
+      "A short audit checklist to run before you automate anything — the security, data and process questions worth answering first.",
     href: "/contact?topic=checklist",
     cta: "Get Checklist",
     icon: "lightbulb",
@@ -176,7 +166,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
   {
     name: "Khubab",
     role: "Founder & AI Architect",
-    bio: "AI systems designer specializing in RAG pipelines, voice agents, and enterprise integrations.",
+    bio: "AI systems designer specializing in document agents, voice agents, and enterprise integrations.",
     initials: "K",
   },
   {
@@ -218,17 +208,27 @@ export const FAQ_ITEMS: FaqItem[] = [
   {
     question: "How long does a project typically take?",
     answer:
-      "Most projects range from 2 to 8 weeks depending on complexity. A focused RAG agent can be live in 2 weeks. A full enterprise workflow automation might take 6–8 weeks including testing and integration.",
+      "Most projects run 2 to 8 weeks depending on complexity. A focused document agent can be live in 2 weeks. A full workflow automation across several systems might take 6–8 weeks including testing and integration.",
+  },
+  {
+    question: "What does it cost?",
+    answer:
+      "Every engagement is scoped individually, because a single automation and a company-wide rollout are not the same job. After a free discovery call we send a fixed quote for the work, with no obligation. We'll also tell you honestly if what you need is smaller than you think.",
   },
   {
     question: "Do you work with small businesses or only enterprises?",
     answer:
-      "Both. We have projects starting from $500 for focused automations, up to six-figure enterprise deployments. We'll always tell you upfront what's realistic for your budget.",
+      "Both. We take focused single-workflow projects for small teams and multi-system rollouts for larger organisations. We'll always tell you upfront what's realistic for your situation.",
+  },
+  {
+    question: "Do I need someone technical on my side?",
+    answer:
+      "No. Our fully-managed option covers design, build, hosting, monitoring and ongoing changes — you tell us what needs adjusting and we handle it. If you do have a technical team, we'll document everything and hand it over cleanly instead.",
   },
   {
     question: "Is my data safe with your AI systems?",
     answer:
-      "Absolutely. We build all solutions with data privacy as a default. We can deploy entirely within your cloud environment (AWS, Azure, GCP) or on-premise, so your data never leaves your control.",
+      "We build with data privacy as the default. Where it matters, we deploy entirely within your own cloud environment (AWS, Azure, GCP) or on-premise, so your data never leaves your control.",
   },
   {
     question: "Do you provide ongoing support after delivery?",

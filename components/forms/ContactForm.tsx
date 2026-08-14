@@ -33,6 +33,8 @@ export default function ContactForm() {
     setError("");
 
     const formData = new FormData(event.currentTarget);
+    // Honeypot — humans never see this field, so anything in it means a bot.
+    const honeypot = String(formData.get("website") ?? "");
     const payload = {
       firstName: String(formData.get("firstName") ?? "").trim(),
       lastName: String(formData.get("lastName") ?? "").trim(),
@@ -54,7 +56,7 @@ export default function ContactForm() {
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(validation.data),
+        body: JSON.stringify({ ...validation.data, website: honeypot }),
       });
 
       const data = await response.json();
@@ -97,6 +99,21 @@ export default function ContactForm() {
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-5">
+          {/* Honeypot. Positioned off-screen rather than display:none — some
+              bots skip hidden inputs — and kept out of the tab order and the
+              accessibility tree so no real user can reach it. */}
+          <div className="absolute left-[-9999px] top-auto size-px overflow-hidden" aria-hidden="true">
+            <label htmlFor="website">Leave this field empty</label>
+            <input
+              id="website"
+              name="website"
+              type="text"
+              tabIndex={-1}
+              autoComplete="off"
+              defaultValue=""
+            />
+          </div>
+
           <div className="grid gap-5 sm:grid-cols-2">
             <div className="space-y-2">
               <Label htmlFor="firstName">First Name *</Label>

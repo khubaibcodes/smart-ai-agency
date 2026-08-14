@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowRight, Brain } from "lucide-react";
-import { CLAUDE_OFFERINGS } from "@/lib/constants";
+import { CLAUDE_OFFERINGS, CLAUDE_SECTION } from "@/lib/constants";
 import AnimateOnScroll from "@/components/ui/animate-on-scroll";
 import SectionBadge from "@/components/ui/section-badge";
 import SectionHeader from "@/components/ui/section-header";
@@ -21,10 +21,12 @@ export default function ClaudeSection() {
           }
           title={
             <>
-              Built with <span className="gradient-text">Claude API</span> — Anthropic&apos;s Most Advanced AI
+              {CLAUDE_SECTION.titleLead}{" "}
+              <span className="gradient-text">{CLAUDE_SECTION.titleAccent}</span>{" "}
+              {CLAUDE_SECTION.titleTail}
             </>
           }
-          subtitle="We build production-grade AI solutions powered by Claude (claude-sonnet-4-6 & claude-opus-4-6) — Anthropic's safest, most intelligent models. Every agent we deploy is crafted for real-world reliability, not just demos."
+          subtitle={CLAUDE_SECTION.subtitle}
         />
 
         <div className="mb-12 flex justify-center">

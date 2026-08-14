@@ -41,7 +41,7 @@ export default function ResourcesSection() {
                   <p className="text-sm leading-relaxed text-muted-foreground">{resource.description}</p>
                   <Link
                     href={resource.href}
-                    className="mt-5 inline-flex items-center justify-center gap-2 text-sm font-semibold text-brand-primary hover:underline sm:justify-start"
+                    className="mt-5 inline-flex min-h-11 items-center justify-center gap-2 text-sm font-semibold text-brand-primary hover:underline sm:justify-start"
                   >
                     {resource.cta} <ArrowRight className="size-4" />
                   </Link>

@@ -32,11 +32,31 @@ Key rules:
 ## Development Standards
 
 - Match existing Tailwind + shadcn patterns before adding new abstractions
-- Dark warm-charcoal theme — brand colors in `app/globals.css`
+- Dark warm-charcoal theme — brand colors in `app/globals.css`. Extend `.panel`
+  rather than introducing a second surface style
 - Use Lucide icons (brand icons like LinkedIn: inline SVG if not in Lucide)
 - Per-page SEO via `createPageMetadata()` from `lib/seo.ts`
 - Never hardcode Supabase keys in client code — use server env vars only
 - Update `Smart-AI-Agency.md` after major milestones
+
+**Copy rules**
+
+- Write for a business owner, not an engineer. Outcome first, mechanism second:
+  lead with what it saves them, then explain how it works as supporting proof
+- **Never hardcode a model version string** (`claude-sonnet-x-y`, "200K context",
+  "GPT-4"). They go stale within months. Say "Anthropic's most advanced models"
+  and keep it in `lib/constants/`, not in JSX
+- Avoid unqualified absolutes ("never hallucinates", "100% accurate")
+- Don't reintroduce fixed pricing tiers — cost is answered in the contact FAQ
+
+**Motion rules**
+
+- Every decorative animation collapses under `prefers-reduced-motion`
+- Pointer-driven effects gated on `(hover: hover) and (pointer: fine)` so touch
+  devices never arm them and `:hover` can't stick after a tap
+- Canvas/WebGL work is gated on in-view + tab visibility, and always has a
+  static fallback (see `ShaderField`)
+- Interactive elements keep a 44px minimum touch target
 
 ---
 
@@ -45,8 +65,11 @@ Key rules:
 - Target clients: international companies + local SMBs wanting AI automation
 - Owner: **Khubab**
 - Contact email: `smrtaisolutions@gmail.com`
-- Domain: `https://genzai.agency`
+- Domain: `https://genzai.agency` — ⚠️ currently NXDOMAIN, see Known issues in
+  `Smart-AI-Agency.md`
 - Location: Palmerston North, New Zealand
+- Lead services (what clients ask for by name): voice agents, WhatsApp/messaging
+  agents, email agents, fully-managed automation
 
 ---
 

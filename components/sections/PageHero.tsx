@@ -3,8 +3,8 @@ import { cn } from "@/lib/utils";
 
 /**
  * Shared masthead for the inner pages. Carries a dialled-down version of the
- * home hero's atmosphere so /services, /pricing, /about and /contact sit in
- * the same world without competing with it.
+ * home hero's atmosphere so /services, /about and /contact sit in the same
+ * world without competing with it.
  */
 export default function PageHero({
   badge,

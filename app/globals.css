@@ -295,20 +295,27 @@
      by the panel's own background, and one in front would wash over the text.
      The rim light plus the hover border shift below carries the effect. */
 
-  .spotlight:hover::before,
-  .spotlight:focus-within::before {
-    opacity: 1;
-  }
-
   .spotlight {
     transition:
       border-color var(--dur-base) var(--ease-out-expo),
       transform var(--dur-base) var(--ease-out-expo);
   }
 
-  .spotlight:hover {
-    border-color: var(--hairline-strong);
-    transform: translateY(-2px);
+  .spotlight:focus-within::before {
+    opacity: 1;
+  }
+
+  /* Hover effects only where hover actually exists. On touch, `:hover` sticks
+     after a tap and leaves cards lifted and rim-lit until you tap elsewhere. */
+  @media (hover: hover) and (pointer: fine) {
+    .spotlight:hover::before {
+      opacity: 1;
+    }
+
+    .spotlight:hover {
+      border-color: var(--hairline-strong);
+      transform: translateY(-2px);
+    }
   }
 
   /* Slowly rotating conic border. Use sparingly — one element per view. */
@@ -348,8 +355,10 @@
     mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
   }
 
-  .marquee-wrap:hover .marquee-track {
-    animation-play-state: paused;
+  @media (hover: hover) and (pointer: fine) {
+    .marquee-wrap:hover .marquee-track {
+      animation-play-state: paused;
+    }
   }
 
   .glow-dot {

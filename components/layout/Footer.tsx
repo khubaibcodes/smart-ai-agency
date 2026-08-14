@@ -31,10 +31,13 @@ export default function Footer() {
 
         <div className="text-center sm:text-left">
           <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider">Services</h4>
-          <ul className="space-y-3 text-sm text-muted-foreground">
+          <ul className="text-sm text-muted-foreground">
             {FOOTER_SERVICE_LINKS.map((link) => (
               <li key={link.href}>
-                <Link href={link.href} className="transition-colors hover:text-brand-primary">
+                <Link
+                  href={link.href}
+                  className="inline-flex min-h-11 items-center transition-colors hover:text-brand-primary"
+                >
                   {link.label}
                 </Link>
               </li>
@@ -44,10 +47,13 @@ export default function Footer() {
 
         <div className="text-center sm:text-left">
           <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider">Company</h4>
-          <ul className="space-y-3 text-sm text-muted-foreground">
+          <ul className="text-sm text-muted-foreground">
             {FOOTER_COMPANY_LINKS.map((link) => (
               <li key={link.href}>
-                <Link href={link.href} className="transition-colors hover:text-brand-primary">
+                <Link
+                  href={link.href}
+                  className="inline-flex min-h-11 items-center transition-colors hover:text-brand-primary"
+                >
                   {link.label}
                 </Link>
               </li>
