@@ -50,6 +50,25 @@ export const AGENT_TRACES: AgentTrace[] = [
   },
 ];
 
+/**
+ * Booking flow, shown in its own single-trace console in the AI-websites
+ * section. Same honesty standard as the traces above: scripted, labelled
+ * illustrative, no model call.
+ */
+export const BOOKING_TRACE: AgentTrace = {
+  id: "booking",
+  label: "Booking Agent",
+  query: "Hi — any chance of a cut and colour Saturday morning?",
+  steps: [
+    { tool: "availability", detail: "live calendar · Sat 9am–1pm", ms: 160 },
+    { tool: "match", detail: "cut + colour · 2h 15m · stylist free", ms: 120 },
+    { tool: "book", detail: "slot held + SMS confirmation sent", ms: 240 },
+  ],
+  answer:
+    "Saturday 9:30am works — that's cut and colour with Mel, about 2¼ hours. I've held it and texted you the confirmation. Want me to add a fringe trim?",
+  citations: ["calendar.write", "sms.send"],
+};
+
 /** Nodes for the automation pipeline diagram. x/y are viewBox percentages. */
 export const WORKFLOW_NODES: WorkflowNode[] = [
   { id: "trigger", label: "Trigger", sublabel: "webhook · cron · event", icon: "zap", x: 8, y: 50 },

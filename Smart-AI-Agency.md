@@ -104,7 +104,8 @@ All content is static TypeScript — no CMS.
 | `agency.ts` | `AGENCY`, `NAV_LINKS`, `HERO_STATS`, `TECH_STACK`, `FOOTER_*` | Layout, Footer, Contact, Hero |
 | `content.ts` | `HOME_HERO`, `CLAUDE_SECTION`, `CLAUDE_OFFERINGS`, `HOME_SERVICE_HIGHLIGHTS`, `TESTIMONIALS`, `FAQ_ITEMS` | Home, About, Contact |
 | `services.ts` | `SERVICES` | Services page, footer links, home highlights |
-| `demo.ts` | `AGENT_TRACES`, `WORKFLOW_NODES`, `WORKFLOW_EDGES` | AgentConsole, WorkflowGraph |
+| `demo.ts` | `AGENT_TRACES`, `BOOKING_TRACE`, `WORKFLOW_NODES`, `WORKFLOW_EDGES` | AgentConsole, WorkflowGraph |
+| `booking.ts` | `BOOKING_SECTION`, `ADOPTION_STATS`, `BOOKING_STATS`, `BOOKING_STEPS`, `BOOKING_COMPARISON` | BookingWebsites |
 | `media.ts` | `HERO_MEDIA`, `ABOUT_MEDIA`, `SERVICE_MEDIA` | Optional imagery; absent keys fall back to icons |
 | `legal.ts` | `PRIVACY_SECTIONS`, `TERMS_SECTIONS` | Legal pages |
 
@@ -138,7 +139,7 @@ Ordered so the channels clients ask for by name come first.
 
 | Route | Purpose |
 |-------|---------|
-| `/` | Home — hero + live agent console, tech marquee, bento services, pipeline, Claude, testimonials, CTA, resources |
+| `/` | Home — hero + live agent console, tech marquee, AI-websites/booking section, bento services, pipeline, Claude, testimonials, CTA, resources |
 | `/services` | Full service catalog |
 | `/about` | Story, mission, team |
 | `/contact` | Contact form + FAQ |

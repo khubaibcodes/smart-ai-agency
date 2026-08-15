@@ -1,6 +1,7 @@
 import { createPageMetadata } from "@/lib/seo";
 import HeroSection from "@/components/sections/HeroSection";
 import TechBar from "@/components/sections/TechBar";
+import BookingWebsites from "@/components/sections/BookingWebsites";
 import BentoServices from "@/components/sections/BentoServices";
 import WorkflowGraph from "@/components/sections/WorkflowGraph";
 import ClaudeSection from "@/components/sections/ClaudeSection";
@@ -25,6 +26,7 @@ export default function HomePage() {
     <>
       <HeroSection />
       <TechBar />
+      <BookingWebsites />
       <BentoServices />
       <WorkflowGraph />
       <ClaudeSection />
