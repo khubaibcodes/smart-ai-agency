@@ -89,6 +89,21 @@ blur, **no drop shadows**. `Card` builds on `.panel`, so section cards inherit i
 `.spotlight` adds a cursor-tracked rim light; `.conic-ring` a rotating border
 (one element per view).
 
+**One layout idea per section.** The bento grid, the pipeline diagram, the
+industries row-list, the stories editorial column and the voice capability
+bands are each a distinct shape on purpose. Adding a sixth card grid is how
+the page starts reading as one template repeated — reach for a new layout
+before reaching for another grid of tiles.
+
+**Amber discipline.** Accent is reserved for primary CTAs, active states, key
+data and glow. Body copy, labels and surfaces stay neutral so the colour still
+means something when it appears.
+
+**Contrast:** all five text tokens verified WCAG AA against all four surfaces
+(weakest is `--brand-text-dim` at 4.90:1 on `--brand-elevated`). Re-run the
+check if any token changes. Text sitting *over* the shader field is not
+statically verifiable — check those visually.
+
 **Motion primitives:** `ShaderField` (WebGL aurora, no 3D engine), `Tilt`
 (pointer 3D tilt), `KineticText` (word-mask reveal), `AnimateOnScroll`,
 marquee, `glow-dot`, `caret`, `flow-dash`.
@@ -106,6 +121,9 @@ All content is static TypeScript — no CMS.
 | `services.ts` | `SERVICES` | Services page, footer links, home highlights |
 | `demo.ts` | `AGENT_TRACES`, `BOOKING_TRACE`, `WORKFLOW_NODES`, `WORKFLOW_EDGES` | AgentConsole, WorkflowGraph |
 | `booking.ts` | `BOOKING_SECTION`, `ADOPTION_STATS`, `BOOKING_STATS`, `BOOKING_STEPS`, `BOOKING_COMPARISON` | BookingWebsites |
+| `industries.ts` | `INDUSTRIES`, `INDUSTRIES_SECTION` | IndustriesSection |
+| `stories.ts` | `STORIES`, `STORIES_SECTION` | StoriesSection — **read the sourcing rule at the top of the file** |
+| `voice.ts` | `VOICE_PAGE`, `VOICE_CAPABILITIES`, `VOICE_MOMENTS`, `VOICE_TRACE`, `VOICE_HANDOFF` | /voice-agents |
 | `media.ts` | `HERO_MEDIA`, `ABOUT_MEDIA`, `SERVICE_MEDIA` | Optional imagery; absent keys fall back to icons |
 | `legal.ts` | `PRIVACY_SECTIONS`, `TERMS_SECTIONS` | Legal pages |
 
@@ -139,7 +157,8 @@ Ordered so the channels clients ask for by name come first.
 
 | Route | Purpose |
 |-------|---------|
-| `/` | Home — hero + live agent console, tech marquee, AI-websites/booking section, bento services, pipeline, Claude, testimonials, CTA, resources |
+| `/` | Home — hero + live agent console, tech marquee, AI-websites/booking, one-system framing + bento services, industries, pipeline, stories, Claude, CTA, resources |
+| `/voice-agents` | Flagship voice page — missed-call moments, live call trace, inbound/outbound/connected capabilities, handoff |
 | `/services` | Full service catalog |
 | `/about` | Story, mission, team |
 | `/contact` | Contact form + FAQ |

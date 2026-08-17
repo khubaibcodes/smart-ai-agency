@@ -28,13 +28,6 @@ export interface ClaudeOffering {
   tags: string[];
 }
 
-export interface Testimonial {
-  name: string;
-  role: string;
-  quote: string;
-  featured: boolean;
-}
-
 export interface ResourceCard {
   title: string;
   description: string;
@@ -112,6 +105,41 @@ export interface CitedStat {
   label: string;
   source: string;
   kind: "research" | "estimate";
+}
+
+/** One industry tile: recognition, not depth. One line of pain, one of fix. */
+export interface Industry {
+  id: string;
+  name: string;
+  icon: IconName;
+  pain: string;
+  fix: string;
+}
+
+/**
+ * A client story.
+ *
+ * `verified` is deliberately required and has no default. An unverified story
+ * renders with a visible marker and its `after` line must stay qualitative —
+ * never attach a number to a real client's outcome we haven't confirmed.
+ */
+export interface Story {
+  id: string;
+  who: string;
+  sector: string;
+  initials: string;
+  before: string;
+  built: string;
+  after: string;
+  quote?: string;
+  verified: boolean;
+}
+
+export interface VoiceCapability {
+  title: string;
+  description: string;
+  icon: IconName;
+  points: string[];
 }
 
 export interface BookingStep {

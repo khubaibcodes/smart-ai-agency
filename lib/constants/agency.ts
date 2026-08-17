@@ -28,6 +28,7 @@ export const AGENCY = {
 
 export const NAV_LINKS = [
   { label: "Home", href: "/" },
+  { label: "Voice Agents", href: "/voice-agents" },
   { label: "Services", href: "/services" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
@@ -43,6 +44,7 @@ export const FOOTER_SERVICE_LINKS = SERVICES.map((service) => ({
 }));
 
 export const FOOTER_COMPANY_LINKS = [
+  { label: "Voice Agents", href: "/voice-agents" },
   { label: "About Us", href: "/about" },
   { label: "Contact", href: "/contact" },
   { label: "Privacy Policy", href: "/privacy" },

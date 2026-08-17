@@ -48,6 +48,12 @@ Key rules:
   and keep it in `lib/constants/`, not in JSX
 - Avoid unqualified absolutes ("never hallucinates", "100% accurate")
 - Don't reintroduce fixed pricing tiers — cost is answered in the contact FAQ
+- **Never publish a client story we cannot evidence.** Stories use the `Story`
+  type, where `verified` is required; unverified ones render an "awaiting
+  sign-off" marker and must keep their `after` line qualitative. Numbers stay
+  inside the client's quoted words, never asserted as our finding
+- Positioning: one system doing several jobs, not a menu of separate products.
+  Copy sounds like hiring help, not deploying software
 - **Every market statistic carries its source on screen.** Use the `CitedStat`
   type, which makes `source` required and separates published `research` from
   industry `estimate` — the UI labels estimates so they can't pass as findings.
@@ -61,6 +67,10 @@ Key rules:
 - Canvas/WebGL work is gated on in-view + tab visibility, and always has a
   static fallback (see `ShaderField`)
 - Interactive elements keep a 44px minimum touch target
+- At most one attention-competing animation per viewport. Motion should explain
+  something real (a call flow, a pipeline, a booking) — decorative movement that
+  represents nothing gets cut
+- Each new section needs its own layout idea, not another card grid
 
 ---
 

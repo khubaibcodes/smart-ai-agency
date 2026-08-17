@@ -56,7 +56,10 @@ export default function HeroSection() {
               variants={fadeUp}
               className="flex items-center justify-center gap-2.5 lg:justify-start"
             >
-              <span className="glow-dot" aria-hidden="true" />
+              {/* Static dot, not the pinging `.glow-dot`. The first viewport
+                  already has the shader field and the console typing; a third
+                  moving thing competes for attention rather than directing it. */}
+              <span className="size-1.5 rounded-full bg-brand-primary" aria-hidden="true" />
               <span className="mono-label">{HOME_HERO.eyebrow}</span>
             </motion.div>
 

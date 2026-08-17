@@ -5,7 +5,6 @@ import type {
   ResourceCard,
   ServiceHighlight,
   TeamMember,
-  Testimonial,
   FaqItem,
 } from "@/lib/types";
 import { SERVICES } from "./services";
@@ -44,13 +43,36 @@ export const HOME_SERVICE_HIGHLIGHTS: ServiceHighlight[] = HOME_SERVICE_IDS.map(
  * is deliberately absent and appears later as supporting proof.
  */
 export const HOME_HERO = {
-  eyebrow: "AI Automation Studio · Available worldwide",
+  eyebrow: "AI Automation Agency · Available worldwide",
   /** Each line animates in separately. Last line renders in the amber gradient. */
-  headline: ["Answer every call.", "Clear every inbox.", "Automatically."],
+  headline: ["Answer every call.", "Reply to every message.", "Never miss a booking."],
   subtitle:
-    "AI agents that answer your phones, reply to your messages, and take care of the repetitive admin — around the clock, in any language. Your team gets their week back.",
+    "One AI system running the front line of your business — the phone, the inbox, the calendar. It works nights, weekends and lunch breaks, and it never calls in sick.",
   primaryCta: { label: "Book a Free Call", href: "/contact" },
-  secondaryCta: { label: "See What We Automate", href: "/services" },
+  secondaryCta: { label: "Meet Your Voice Agent", href: "/voice-agents" },
+} as const;
+
+/**
+ * The one sentence the whole site serves. Every section should be defensible
+ * as an elaboration of this — if a section doesn't support it, it's the wrong
+ * section.
+ */
+export const POSITIONING = {
+  statement:
+    "We build AI systems that run the parts of your business that used to need a person answering the phone, replying to messages, and booking the calendar.",
+  /** Reframes the service list as one hire with several duties. */
+  framing: {
+    title: "One system. Not six tools.",
+    body: "Most agencies sell you a chatbot, then a booking widget, then an email tool, and leave you to make them talk to each other. We build one agent that does all of it and shares one calendar, one customer record and one conversation history — because your customer doesn't care which channel they used.",
+    jobs: [
+      "Answers the phone",
+      "Replies on WhatsApp & SMS",
+      "Clears the inbox",
+      "Books the calendar",
+      "Finds the document",
+      "Chases the follow-up",
+    ],
+  },
 } as const;
 
 /**
@@ -111,29 +133,12 @@ export const CLAUDE_OFFERINGS: ClaudeOffering[] = [
   },
 ];
 
-export const TESTIMONIALS: Testimonial[] = [
-  {
-    name: "Ayesha",
-    role: "Operations Director, UK",
-    quote:
-      "The document agent Smart AI built cut our search time from hours to seconds. Our team can't imagine working without it.",
-    featured: false,
-  },
-  {
-    name: "Abdul Samad",
-    role: "CEO, Lagos Tech Hub",
-    quote:
-      "Their Voice AI integration with our call center saved us 40 hours per week. Professional team, outstanding delivery, highly recommend.",
-    featured: true,
-  },
-  {
-    name: "Khansa",
-    role: "HR Manager, Sweden",
-    quote:
-      "SharePoint automation completely transformed how we handle onboarding. What took 3 days now takes 20 minutes. Incredible ROI.",
-    featured: false,
-  },
-];
+/**
+ * Client quotes now live in lib/constants/stories.ts, alongside the before /
+ * after context and the `verified` flag. The old TESTIMONIALS array was
+ * removed rather than kept in parallel — two copies of the same three quotes
+ * is exactly how a claim gets updated in one place and not the other.
+ */
 
 export const RESOURCE_CARDS: ResourceCard[] = [
   {
