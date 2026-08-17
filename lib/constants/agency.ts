@@ -9,8 +9,16 @@ export const AGENCY = {
   tagline: "Intelligent AI Automation",
   domain: "https://genzai.agency",
   email: "smrtaisolutions@gmail.com",
-  phone: "",
-  phoneTel: "",
+  /** Display format. */
+  phone: "+64 22 086 4612",
+  /** `tel:` href — E.164, no spaces. */
+  phoneTel: "+64220864612",
+  whatsapp: {
+    /** wa.me requires digits only, country code first, no + and no spaces. */
+    number: "64220864612",
+    url: "https://wa.me/64220864612",
+    label: "WhatsApp",
+  },
   location: {
     city: "Palmerston North",
     region: "Manawatū-Whanganui",
