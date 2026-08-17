@@ -216,7 +216,6 @@ npm run lint     # ESLint  ⚠️ currently fails to start, see Known issues
 | **`npm run lint` fails to start** | `TypeError: Converting circular structure to JSON` in `@eslint/eslintrc` while resolving `eslint-config-next`. Fails during config resolution, before any file is read. TypeScript checking still runs via `next build` |
 | **Brand name collision** | Code says "Smart AI Solutions", repo is `smart-ai-agency`, domain is `genzai.agency`, and a separate `GenZai` repo exists |
 | **Unverified marketing claims** | `HERO_STATS` (30+ projects, 5+ clients, 80% time saved) and the three named testimonials are unsubstantiated in-repo |
-| **No phone number** | `AGENCY.phone` is empty. For an agency selling Voice AI this is a conversion leak |
 | **Rate limiting is per-instance** | In-memory; resets on cold start. Needs Vercel KV or Upstash for a hard guarantee |
 
 ---

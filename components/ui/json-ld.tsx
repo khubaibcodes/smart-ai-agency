@@ -10,10 +10,12 @@ export function OrganizationSchema() {
     description:
       "AI automation agency providing RAG agents, Voice AI, n8n workflows, SharePoint integration, and custom AI solutions.",
     sameAs: [AGENCY.linkedin.url],
+    telephone: AGENCY.phoneTel,
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "Customer Support",
       email: AGENCY.email,
+      telephone: AGENCY.phoneTel,
       areaServed: ["US", "UK", "Europe", "Middle East", "Africa", "NZ"],
       availableLanguage: ["en"],
     },
@@ -56,6 +58,7 @@ export function ProfessionalServiceSchema() {
     name: AGENCY.name,
     url: AGENCY.domain,
     email: AGENCY.email,
+    telephone: AGENCY.phoneTel,
     areaServed: "Worldwide",
     address: {
       "@type": "PostalAddress",
