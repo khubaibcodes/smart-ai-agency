@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowUpRight, Sparkles } from "lucide-react";
-import { HOME_SERVICE_HIGHLIGHTS, SERVICES } from "@/lib/constants";
+import { HOME_SERVICE_HIGHLIGHTS, POSITIONING, SERVICES } from "@/lib/constants";
 import AnimateOnScroll from "@/components/ui/animate-on-scroll";
 import SectionBadge from "@/components/ui/section-badge";
 import SectionHeader from "@/components/ui/section-header";
@@ -50,8 +50,34 @@ export default function BentoServices() {
               AI Solutions That <span className="gradient-text">Work For You</span>
             </>
           }
-          subtitle="From intelligent document search to hands-free voice commands — automation that fits your workflow instead of replacing it."
+          subtitle="From instant answers in your documents to a voice that books the job — every one of these is the same agent doing a different part of the work."
         />
+
+        {/* Reframes the tiles below as one hire with several duties, rather
+            than a menu of unrelated products. Sits above the grid as a band so
+            it reads as a preamble, not a seventh tile. */}
+        <div className="mx-auto mb-10 grid max-w-6xl gap-8 rounded-2xl border border-[var(--hairline)] bg-brand-bg-2/50 p-6 sm:p-8 lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-12">
+          <div>
+            <h3 className="text-2xl font-bold tracking-[-0.02em] md:text-[1.75rem]">
+              {POSITIONING.framing.title}
+            </h3>
+            <p className="mt-4 text-sm leading-relaxed text-muted-foreground md:text-base">
+              {POSITIONING.framing.body}
+            </p>
+          </div>
+
+          <ul className="grid gap-x-6 gap-y-3 sm:grid-cols-2">
+            {POSITIONING.framing.jobs.map((job) => (
+              <li key={job} className="flex items-center gap-2.5 text-sm">
+                <span
+                  className="size-1.5 shrink-0 rounded-full bg-brand-primary/70"
+                  aria-hidden="true"
+                />
+                {job}
+              </li>
+            ))}
+          </ul>
+        </div>
 
         <div className="mx-auto grid max-w-6xl auto-rows-[minmax(0,auto)] gap-4 sm:grid-cols-2 lg:grid-cols-6">
           {/* lead tile */}

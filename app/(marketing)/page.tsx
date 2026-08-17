@@ -3,9 +3,10 @@ import HeroSection from "@/components/sections/HeroSection";
 import TechBar from "@/components/sections/TechBar";
 import BookingWebsites from "@/components/sections/BookingWebsites";
 import BentoServices from "@/components/sections/BentoServices";
+import IndustriesSection from "@/components/sections/IndustriesSection";
+import StoriesSection from "@/components/sections/StoriesSection";
 import WorkflowGraph from "@/components/sections/WorkflowGraph";
 import ClaudeSection from "@/components/sections/ClaudeSection";
-import TestimonialsSection from "@/components/sections/TestimonialsSection";
 import ResourcesSection from "@/components/sections/ResourcesSection";
 import CTASection from "@/components/sections/CTASection";
 
@@ -28,9 +29,12 @@ export default function HomePage() {
       <TechBar />
       <BookingWebsites />
       <BentoServices />
+      <IndustriesSection />
       <WorkflowGraph />
+      {/* StoriesSection replaces TestimonialsSection: it is built from the same
+          three client quotes, so rendering both printed them twice. */}
+      <StoriesSection />
       <ClaudeSection />
-      <TestimonialsSection />
       <CTASection />
       <ResourcesSection />
     </>
