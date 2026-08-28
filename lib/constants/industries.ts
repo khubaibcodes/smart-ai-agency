@@ -4,7 +4,7 @@ import type { Industry } from "@/lib/types";
  * "Who We Work With" — breadth and recognition, not depth.
  *
  * One line of pain, one line of fix. The visitor should find their own
- * business in under three seconds; depth belongs in the stories section and
+ * business in under three seconds; depth belongs in the examples section and
  * the voice-agent page. Resist letting these grow into paragraphs.
  */
 

@@ -6,5 +6,5 @@ export * from "./demo";
 export * from "./media";
 export * from "./booking";
 export * from "./industries";
-export * from "./stories";
+export * from "./examples";
 export * from "./voice";
