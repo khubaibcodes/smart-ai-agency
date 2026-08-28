@@ -11,18 +11,29 @@ import { SERVICES } from "./services";
 
 /**
  * Which services lead the homepage. Voice, messaging and email first —
- * they're what prospective clients ask for by name. The bento grid sizes
- * tiles by position, so the order here is a layout decision as well as an
- * editorial one, and the count should stay at six.
+ * they're what prospective clients ask for by name; websites sits second as
+ * the flagship build offering. The bento grid sizes tiles by position, so the
+ * order here is a layout decision as well as an editorial one, and the count
+ * must match the SPANS list in BentoServices (currently seven).
  */
 const HOME_SERVICE_IDS = [
   "voice",
+  "websites",
   "whatsapp",
   "email",
   "rag",
   "managed",
   "automation",
 ] as const;
+
+/**
+ * The websites tile is the discoverable entry point; the deep-dive is the
+ * "AI Websites, Fully Booked" section further down the same page, so it links
+ * to that anchor rather than the services page.
+ */
+const HOME_SERVICE_HREF_OVERRIDES: Record<string, string> = {
+  websites: "/#ai-websites",
+};
 
 export const HOME_SERVICE_HIGHLIGHTS: ServiceHighlight[] = HOME_SERVICE_IDS.map((id) => {
   const service = SERVICES.find((item) => item.id === id)!;
@@ -31,7 +42,7 @@ export const HOME_SERVICE_HIGHLIGHTS: ServiceHighlight[] = HOME_SERVICE_IDS.map(
     icon: service.icon as IconName,
     title: service.title,
     description: service.paragraphs[0],
-    href: `/services#${service.id}`,
+    href: HOME_SERVICE_HREF_OVERRIDES[service.id] ?? `/services#${service.id}`,
   };
 });
 
@@ -134,10 +145,11 @@ export const CLAUDE_OFFERINGS: ClaudeOffering[] = [
 ];
 
 /**
- * Client quotes now live in lib/constants/stories.ts, alongside the before /
- * after context and the `verified` flag. The old TESTIMONIALS array was
- * removed rather than kept in parallel — two copies of the same three quotes
- * is exactly how a claim gets updated in one place and not the other.
+ * The former client stories (and the TESTIMONIALS array before them) were
+ * removed entirely: no client had signed off on the write-ups, so they've been
+ * replaced by clearly-labelled illustrative scenarios in
+ * lib/constants/examples.ts. Verified stories return through the `Story` type
+ * when a client approves one for public use.
  */
 
 export const RESOURCE_CARDS: ResourceCard[] = [
@@ -167,30 +179,34 @@ export const RESOURCE_CARDS: ResourceCard[] = [
   },
 ];
 
+/**
+ * The real team — two people, real names, real profiles. The previous four
+ * role-as-name cards ("Automation Lead", "Voice AI Engineer") implied
+ * headcount that doesn't exist; two verifiable engineers with linked profiles
+ * are worth more than four invented ones.
+ */
 export const TEAM_MEMBERS: TeamMember[] = [
   {
-    name: "Khubab",
-    role: "Founder & AI Architect",
-    bio: "AI systems designer specializing in document agents, voice agents, and enterprise integrations.",
-    initials: "K",
+    name: "Khubaib Haider",
+    role: "Founder · AI Integration Engineer",
+    bio: "Leads AI system design — voice, messaging and document agents, automation architecture, and client-facing scoping and delivery on every project.",
+    initials: "KH",
+    links: {
+      linkedin: "https://www.linkedin.com/in/khubaib-haider-a00347378",
+      github: "https://github.com/khubaibcodes",
+      instagram: "https://www.instagram.com/smartaisolutionsnz/",
+    },
   },
   {
-    name: "Automation Lead",
-    role: "Workflow Engineer",
-    bio: "Expert in n8n, Make, and custom automation — connecting tools so humans don't have to.",
-    initials: "A",
-  },
-  {
-    name: "SharePoint Specialist",
-    role: "Microsoft 365 Engineer",
-    bio: "Deep expertise in SharePoint, Teams, and Power Platform integrations with AI layers.",
-    initials: "S",
-  },
-  {
-    name: "Voice AI Engineer",
-    role: "Speech & NLP Specialist",
-    bio: "Builds real-time voice agents with multilingual support and low-latency response systems.",
-    initials: "V",
+    name: "Hafiz Abdul Rehman",
+    role: "Full Stack Web Developer · MERN / Next.js",
+    bio: "Builds the sites themselves — from Figma to a live, AI-integrated product, using the same modern stack (Next.js, TypeScript) behind every project we ship.",
+    initials: "AR",
+    links: {
+      linkedin: "https://www.linkedin.com/in/hafiz-abdul-rehman-2a321125a/",
+      github: "https://github.com/hafizabdulrehman675",
+      portfolio: "https://hafizabdulrehman.netlify.app/",
+    },
   },
 ];
 

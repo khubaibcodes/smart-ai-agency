@@ -30,6 +30,14 @@ export const AGENCY = {
     url: "https://www.linkedin.com/in/khubaib-haider-a00347378/",
     label: "LinkedIn",
   },
+  instagram: {
+    url: "https://www.instagram.com/smartaisolutionsnz/",
+    label: "Instagram",
+  },
+  github: {
+    url: "https://github.com/khubaibcodes",
+    label: "GitHub",
+  },
   responseTime: "within 24 hours",
   discoveryCall: "free 30-minute discovery call",
 } as const;
@@ -94,6 +102,7 @@ export const ABOUT_STATS: Stat[] = [
 ];
 
 export const SERVICE_OPTIONS = [
+  { value: "websites", label: "AI-Integrated Website" },
   { value: "rag", label: "RAG Agents" },
   { value: "voice", label: "Voice AI Agents" },
   { value: "sharepoint", label: "SharePoint Integration" },

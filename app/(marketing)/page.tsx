@@ -4,7 +4,7 @@ import TechBar from "@/components/sections/TechBar";
 import BookingWebsites from "@/components/sections/BookingWebsites";
 import BentoServices from "@/components/sections/BentoServices";
 import IndustriesSection from "@/components/sections/IndustriesSection";
-import StoriesSection from "@/components/sections/StoriesSection";
+import ExamplesSection from "@/components/sections/ExamplesSection";
 import WorkflowGraph from "@/components/sections/WorkflowGraph";
 import ClaudeSection from "@/components/sections/ClaudeSection";
 import ResourcesSection from "@/components/sections/ResourcesSection";
@@ -31,9 +31,10 @@ export default function HomePage() {
       <BentoServices />
       <IndustriesSection />
       <WorkflowGraph />
-      {/* StoriesSection replaces TestimonialsSection: it is built from the same
-          three client quotes, so rendering both printed them twice. */}
-      <StoriesSection />
+      {/* ExamplesSection replaces StoriesSection: the three client stories had
+          no client sign-off, so until a verified story exists this shows
+          clearly-labelled illustrative scenarios instead. */}
+      <ExamplesSection />
       <ClaudeSection />
       <CTASection />
       <ResourcesSection />

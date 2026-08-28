@@ -17,10 +17,11 @@ import { cn } from "@/lib/utils";
  * lead service gets a tall tile with its real feature list (pulled from
  * SERVICES, not duplicated), and the rest step down in size.
  *
- * Spans are positional on a 6-column grid:
+ * Spans are positional on a 6-column grid (seven tiles):
  *   row 1–2  [ feature (3 wide, 2 tall) ][ tile (3) ]
  *                                        [ tile (3) ]
  *   row 3    [ tile (2) ][ tile (2) ][ tile (2) ]
+ *   row 4    [ wide closing tile (6) ]
  */
 const SPANS = [
   "lg:col-span-3 lg:row-span-2",
@@ -29,6 +30,7 @@ const SPANS = [
   "lg:col-span-2",
   "lg:col-span-2",
   "lg:col-span-2",
+  "sm:col-span-2 lg:col-span-6",
 ];
 
 export default function BentoServices() {

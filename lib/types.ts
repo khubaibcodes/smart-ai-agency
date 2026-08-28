@@ -12,7 +12,8 @@ export type IconName =
   | "file-text"
   | "message-circle"
   | "mail"
-  | "handshake";
+  | "handshake"
+  | "globe";
 
 export interface ServiceHighlight {
   id: string;
@@ -36,11 +37,20 @@ export interface ResourceCard {
   icon: IconName;
 }
 
+/** External profile links rendered as icon buttons on a team card. */
+export interface TeamMemberLinks {
+  linkedin?: string;
+  github?: string;
+  portfolio?: string;
+  instagram?: string;
+}
+
 export interface TeamMember {
   name: string;
   role: string;
   bio: string;
   initials: string;
+  links?: TeamMemberLinks;
 }
 
 export interface MissionValue {
@@ -122,6 +132,11 @@ export interface Industry {
  * `verified` is deliberately required and has no default. An unverified story
  * renders with a visible marker and its `after` line must stay qualitative —
  * never attach a number to a real client's outcome we haven't confirmed.
+ *
+ * Currently unused: the Stories section was replaced by illustrative examples
+ * (see IllustrativeExample) until a real, signed-off client story exists.
+ * When one does, it renders through this shape — Before / After / "What we
+ * built" / the client's own quote, disclosed as their own unaudited figures.
  */
 export interface Story {
   id: string;
@@ -133,6 +148,28 @@ export interface Story {
   after: string;
   quote?: string;
   verified: boolean;
+}
+
+/**
+ * An illustrative scenario — explicitly NOT a client story.
+ *
+ * No invented company, no fabricated persona, no made-up numbers: each card
+ * describes a general "before" situation and the mechanism an agent runs,
+ * following the same labelling convention as the AgentConsole's
+ * "illustrative trace" tag. The UI must always render a visible
+ * "Illustrative example" marker for these.
+ */
+export interface IllustrativeExample {
+  id: string;
+  channel: string;
+  icon: IconName;
+  title: string;
+  /** General situation, never attributed to a named business. */
+  before: string;
+  /** The mechanism, step by step — mirrors the numbered booking-step pattern. */
+  steps: string[];
+  /** Type of outcome in general terms — no figures, no quotes. */
+  outcome: string;
 }
 
 export interface VoiceCapability {
