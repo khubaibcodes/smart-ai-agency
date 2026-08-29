@@ -1,6 +1,6 @@
 import { Sparkles } from "lucide-react";
 import { EXAMPLES_SECTION, ILLUSTRATIVE_EXAMPLES } from "@/lib/constants";
-import AnimateOnScroll from "@/components/ui/animate-on-scroll";
+import { StaggerGroup, StaggerItem } from "@/components/ui/motion-primitives";
 import SectionBadge from "@/components/ui/section-badge";
 import { ServiceIcon } from "@/components/ui/service-icon";
 
@@ -39,9 +39,12 @@ export default function ExamplesSection() {
           <p className="mt-5 leading-relaxed text-muted-foreground">{EXAMPLES_SECTION.subtitle}</p>
         </div>
 
-        <div className="mx-auto mt-14 grid max-w-6xl gap-6 lg:grid-cols-2">
-          {ILLUSTRATIVE_EXAMPLES.map((example, index) => (
-            <AnimateOnScroll key={example.id} delay={index * 80} className="h-full">
+        <StaggerGroup
+          stagger={0.09}
+          className="mx-auto mt-14 grid max-w-6xl gap-6 lg:grid-cols-2"
+        >
+          {ILLUSTRATIVE_EXAMPLES.map((example) => (
+            <StaggerItem key={example.id} className="h-full">
               <article className="panel flex h-full flex-col p-6 sm:p-7">
                 {/* channel + the non-negotiable illustrative tag */}
                 <div className="flex items-center gap-3">
@@ -77,9 +80,9 @@ export default function ExamplesSection() {
                   </p>
                 </div>
               </article>
-            </AnimateOnScroll>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerGroup>
       </div>
     </section>
   );

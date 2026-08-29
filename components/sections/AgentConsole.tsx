@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import { Check, CornerDownLeft, Loader2 } from "lucide-react";
+import { SPRING_TACTILE } from "@/components/ui/motion-primitives";
 import { AGENT_TRACES } from "@/lib/constants";
 import type { AgentTrace } from "@/lib/types";
 import { cn } from "@/lib/utils";
@@ -24,10 +26,13 @@ type Phase = "query" | "steps" | "answer" | "done";
 export default function AgentConsole({
   className,
   traces = AGENT_TRACES,
+  frameless = false,
 }: {
   className?: string;
   /** Defaults to the full set. Pass a single trace to scope the console to one flow. */
   traces?: AgentTrace[];
+  /** Drop the panel chrome — for embedding inside a device mockup's screen. */
+  frameless?: boolean;
 }) {
   const hostRef = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
@@ -129,7 +134,12 @@ export default function AgentConsole({
   return (
     <div
       ref={hostRef}
-      className={cn("panel panel-elevated conic-ring overflow-hidden", className)}
+      className={cn(
+        frameless
+          ? "overflow-hidden rounded-[var(--radius-xl)] bg-[var(--elev-1)]"
+          : "panel panel-elevated conic-ring overflow-hidden",
+        className,
+      )}
     >
       {/* title bar */}
       <div className="flex items-center gap-3 border-b border-[var(--hairline)] px-4 py-3">
@@ -232,13 +242,23 @@ export default function AgentConsole({
             className={cn(
               // min-h-11 keeps the tap target at 44px on touch devices; the
               // label itself is much smaller than that.
-              "flex min-h-11 flex-1 items-center justify-center rounded-md px-2 py-2 font-mono text-[10px] uppercase tracking-[0.14em] transition-colors",
+              "relative flex min-h-11 flex-1 items-center justify-center rounded-md px-2 py-2 font-mono text-[10px] uppercase tracking-[0.14em] transition-colors",
               i === index
-                ? "bg-brand-primary/10 text-brand-primary"
+                ? "text-brand-primary"
                 : "text-brand-dim hover:bg-secondary hover:text-[var(--brand-text)]",
             )}
           >
-            {item.label}
+            {/* Shared-layout pill morphs between tabs instead of hard-cutting.
+                reduced-motion's global 0.01ms transition rule collapses it. */}
+            {i === index && traces.length > 1 && (
+              <motion.span
+                layoutId={`agent-trace-pill-${traces[0].id}`}
+                transition={SPRING_TACTILE}
+                className="absolute inset-0 rounded-md bg-brand-primary/10"
+                aria-hidden="true"
+              />
+            )}
+            <span className="relative">{item.label}</span>
           </button>
         ))}
       </div>

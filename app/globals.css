@@ -33,14 +33,22 @@
   --brand-primary: #d9a15b;
   --brand-primary-dark: #a8763c;
   --brand-accent: #e8c89a;
-  --brand-bg: #0b0b0d;
-  --brand-bg-2: #0f0f11;
-  --brand-card: #151517;
-  --brand-elevated: #18181b;
+  --brand-bg: var(--elev-0);
+  --brand-bg-2: var(--elev-1);
+  --brand-card: var(--elev-2);
+  --brand-elevated: var(--elev-3);
   --brand-text: #e8e4dc;
   --brand-text-muted: #a19c92;
   --brand-text-dim: #8a8680;
   --navbar-h: 4.5rem;
+
+  /*
+   * Screen accent — a muted cool grey-blue used ONLY for the "real product
+   * screen" glow on the hero device mockup. It exists to visually separate
+   * "an actual interface" from the ambient amber brand light, and must never
+   * be used for text, CTAs, or decorative atmosphere.
+   */
+  --screen-glow: #6fa3b8;
 
   /* ---- motion tokens ---- */
   --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
@@ -49,9 +57,34 @@
   --dur-base: 320ms;
   --dur-slow: 700ms;
 
-  /* ---- surface elevation ladder ---- */
+  /*
+   * ---- spacing scale (4pt/8pt grid) ----
+   * The only blessed gap/padding rhythm for sections and cards. Arbitrary
+   * padding values in components should map to one of these.
+   */
+  --space-1: 0.25rem;  /*  4px */
+  --space-2: 0.5rem;   /*  8px */
+  --space-3: 0.75rem;  /* 12px */
+  --space-4: 1rem;     /* 16px */
+  --space-5: 1.5rem;   /* 24px */
+  --space-6: 2rem;     /* 32px */
+  --space-7: 3rem;     /* 48px */
+  --space-8: 4rem;     /* 64px */
+  --space-9: 6rem;     /* 96px */
+
+  /*
+   * ---- elevation ladder (solid tones) ----
+   * Four surface steps from page ground to highest card. Depth reads through
+   * these tonal shifts first; borders and blur are secondary.
+   */
+  --elev-0: #0b0b0d;
+  --elev-1: #101013;
+  --elev-2: #151517;
+  --elev-3: #1a1a1e;
+
+  /* translucent variants used by .panel / .glass-card */
   --surface-1: rgba(21, 21, 23, 0.55);
-  --surface-2: rgba(24, 24, 27, 0.72);
+  --surface-2: rgba(26, 26, 30, 0.72);
   --hairline: rgba(232, 228, 220, 0.08);
   --hairline-strong: rgba(232, 228, 220, 0.14);
 }
@@ -92,6 +125,17 @@
   --color-brand-elevated: var(--brand-elevated);
   --color-brand-muted: var(--brand-text-muted);
   --color-brand-dim: var(--brand-text-dim);
+  --color-screen: var(--screen-glow);
+
+  --spacing-space-1: var(--space-1);
+  --spacing-space-2: var(--space-2);
+  --spacing-space-3: var(--space-3);
+  --spacing-space-4: var(--space-4);
+  --spacing-space-5: var(--space-5);
+  --spacing-space-6: var(--space-6);
+  --spacing-space-7: var(--space-7);
+  --spacing-space-8: var(--space-8);
+  --spacing-space-9: var(--space-9);
 
   --font-sans: var(--font-inter), system-ui, sans-serif;
   --font-display: var(--font-display), var(--font-inter), system-ui, sans-serif;
@@ -170,8 +214,15 @@
     color: transparent;
   }
 
+  /* Section rhythm comes off the spacing scale, not per-section values. */
   .section-padding {
-    @apply py-16 md:py-24;
+    padding-block: var(--space-8);
+  }
+
+  @media (min-width: 768px) {
+    .section-padding {
+      padding-block: var(--space-9);
+    }
   }
 
   .glass-card {
@@ -262,6 +313,73 @@
     background:
       linear-gradient(180deg, rgba(232, 228, 220, 0.05) 0%, transparent 42%),
       var(--surface-2);
+  }
+
+  /* ---------- hero device mockup ---------- */
+
+  /* Perspective stage — children can rotate in real 3D space. */
+  .device-stage {
+    perspective: 1600px;
+  }
+
+  /*
+   * Laptop-style display shell around the live console. The only place the
+   * cool --screen-glow accent appears: it marks "this is an actual product
+   * screen", where amber stays the ambient brand light.
+   */
+  .device-frame {
+    position: relative;
+    border-radius: calc(var(--radius-xl) + 6px);
+    border: 1px solid var(--hairline-strong);
+    background:
+      linear-gradient(180deg, rgba(232, 228, 220, 0.07) 0%, transparent 30%),
+      var(--elev-3);
+    padding: var(--space-2);
+    box-shadow:
+      0 1px 0 rgba(232, 228, 220, 0.06) inset,
+      0 30px 80px -24px rgba(0, 0, 0, 0.75),
+      0 0 90px -30px color-mix(in srgb, var(--screen-glow) 45%, transparent);
+  }
+
+  /* Subtle glass reflection sweeping the top of the screen. */
+  .device-reflection::after {
+    content: "";
+    position: absolute;
+    inset: var(--space-2);
+    border-radius: var(--radius-xl);
+    pointer-events: none;
+    z-index: 2;
+    background: linear-gradient(
+      115deg,
+      rgba(232, 228, 220, 0.065) 0%,
+      rgba(232, 228, 220, 0.02) 18%,
+      transparent 32%
+    );
+  }
+
+  /* Laptop base bar — grounds the screen as hardware, not a floating div. */
+  .device-base {
+    margin-inline: auto;
+    height: 10px;
+    width: 62%;
+    border-radius: 0 0 14px 14px;
+    border: 1px solid var(--hairline);
+    border-top: none;
+    background: linear-gradient(180deg, var(--elev-3) 0%, var(--elev-1) 100%);
+  }
+
+  /* Soft floor shadow beneath the device. */
+  .device-floor {
+    position: absolute;
+    left: 50%;
+    bottom: -26px;
+    height: 44px;
+    width: 78%;
+    transform: translateX(-50%);
+    border-radius: 9999px;
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.55) 0%, transparent 68%);
+    filter: blur(10px);
+    pointer-events: none;
   }
 
   /* Cursor-tracked highlight. Consumers set --mx / --my. */
@@ -409,16 +527,6 @@
    KEYFRAMES
    ============================================ */
 
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-12px); }
-}
-
-@keyframes pulse-glow {
-  0%, 100% { opacity: 0.35; }
-  50% { opacity: 0.7; }
-}
-
 @keyframes rotate-angle {
   to { --angle: 360deg; }
 }
@@ -440,14 +548,6 @@
 
 @keyframes dash-flow {
   to { stroke-dashoffset: -12; }
-}
-
-.animate-float {
-  animation: float 5s ease-in-out infinite;
-}
-
-.animate-pulse-glow {
-  animation: pulse-glow 3s ease-in-out infinite;
 }
 
 /* ============================================

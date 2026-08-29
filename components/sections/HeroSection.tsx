@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, ChevronDown } from "lucide-react";
@@ -7,7 +8,7 @@ import { HERO_STATS, HOME_HERO } from "@/lib/constants";
 import AnimatedStat from "@/components/ui/animated-stat";
 import KineticText from "@/components/ui/kinetic-text";
 import ShaderField from "@/components/ui/shader-field";
-import Tilt from "@/components/ui/tilt";
+import { Magnetic } from "@/components/ui/motion-primitives";
 import AgentConsole from "@/components/sections/AgentConsole";
 import { Button } from "@/components/ui/button";
 
@@ -23,11 +24,28 @@ const fadeUp = {
 export default function HeroSection() {
   const reduced = useReducedMotion();
 
-  // Scroll-linked depth: the atmosphere drifts slower than the content, which
-  // reads as distance without moving anything the user is trying to read.
+  // The 3D lean and scroll parallax are a desktop-space pleasure: on a
+  // narrow single-column layout the device already sits flat and full-width,
+  // so tilting it reads as awkward rather than dimensional. Below `lg` it
+  // stays a clean, static mockup — no rotation, no scroll-linked drift.
+  const [depthEnabled, setDepthEnabled] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const update = () => setDepthEnabled(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
+  // Three scroll depths — atmosphere drifts slowest, the device sits between
+  // it and the copy — so the hero has real spatial layering instead of flat
+  // stacked divs. Nothing the user is reading moves.
   const { scrollYProgress } = useScroll();
   const atmosphereY = useTransform(scrollYProgress, [0, 0.25], ["0%", "14%"]);
   const atmosphereOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0.35]);
+  const deviceY = useTransform(scrollYProgress, [0, 0.25], ["0%", "7%"]);
+  const deviceRotate = useTransform(scrollYProgress, [0, 0.25], [-6, -1.5]);
+  const deviceDepthActive = depthEnabled && !reduced;
 
   return (
     <section
@@ -38,7 +56,9 @@ export default function HeroSection() {
         className="pointer-events-none absolute inset-0"
         style={reduced ? undefined : { y: atmosphereY, opacity: atmosphereOpacity }}
       >
-        <ShaderField intensity={0.5} />
+        {/* Atmosphere, not the main event: the realistic device anchor carries
+            the right column now, so the shader steps back. */}
+        <ShaderField intensity={0.35} />
         <div className="hero-grid-mask absolute inset-0 opacity-25" />
         <div className="hero-vignette absolute inset-0" />
       </motion.div>
@@ -54,16 +74,29 @@ export default function HeroSection() {
               initial="hidden"
               animate="visible"
               variants={fadeUp}
-              className="flex items-center justify-center gap-2.5 lg:justify-start"
+              className="text-center lg:text-left"
             >
-              {/* Static dot, not the pinging `.glow-dot`. The first viewport
+              {/* The dot flows inline with the label rather than sitting in a
+                  flex row beside it: at 375px the eyebrow wraps to two lines,
+                  and a sibling dot gets stranded out at the left edge. Inline,
+                  it stays married to the first word at every width.
+
+                  Static, not the pinging `.glow-dot` — the first viewport
                   already has the shader field and the console typing; a third
                   moving thing competes for attention rather than directing it. */}
-              <span className="size-1.5 rounded-full bg-brand-primary" aria-hidden="true" />
-              <span className="mono-label">{HOME_HERO.eyebrow}</span>
+              <span className="mono-label">
+                <span
+                  className="mr-2.5 inline-block size-1.5 rounded-full bg-brand-primary align-middle"
+                  aria-hidden="true"
+                />
+                {HOME_HERO.eyebrow}
+              </span>
             </motion.div>
 
-            <h1 className="mt-7 text-[2.4rem] font-bold leading-[1.06] tracking-[-0.035em] sm:text-5xl md:text-6xl lg:text-[3.9rem]">
+            {/* Bigger jump from headline to body than a mid-tier template:
+                72px display against 15-18px copy makes hierarchy read
+                instantly. */}
+            <h1 className="mt-7 text-[2.6rem] font-bold leading-[1.05] tracking-[-0.035em] sm:text-5xl md:text-6xl lg:text-[4.5rem]">
               {HOME_HERO.headline.map((line, index) => (
                 <span key={line} className="block">
                   <KineticText
@@ -94,16 +127,18 @@ export default function HeroSection() {
               variants={fadeUp}
               className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4 lg:justify-start"
             >
-              <Button
-                asChild
-                size="lg"
-                className="group min-w-[180px] rounded-full shadow-lg shadow-brand-primary/20"
-              >
-                <Link href={HOME_HERO.primaryCta.href}>
-                  {HOME_HERO.primaryCta.label}
-                  <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-                </Link>
-              </Button>
+              <Magnetic>
+                <Button
+                  asChild
+                  size="lg"
+                  className="group min-w-[180px] rounded-full shadow-lg shadow-brand-primary/20"
+                >
+                  <Link href={HOME_HERO.primaryCta.href}>
+                    {HOME_HERO.primaryCta.label}
+                    <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+                  </Link>
+                </Button>
+              </Magnetic>
               <Button
                 asChild
                 variant="outline"
@@ -137,20 +172,36 @@ export default function HeroSection() {
             </motion.div>
           </div>
 
+          {/* The realistic anchor: the live console rendered as an actual
+              device sitting angled in the scene — screen reflection, hardware
+              base, floor shadow, cool screen glow — beside the abstract amber
+              atmosphere. Real product screen, not decoration: it's the same
+              illustrative trace, now on hardware. */}
           <motion.div
-            initial={reduced ? undefined : { opacity: 0, y: 28 }}
+            initial={reduced ? undefined : { opacity: 0, y: 34 }}
             animate={reduced ? undefined : { opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.34, ease: [0.22, 1, 0.36, 1] }}
-            className="relative mx-auto w-full max-w-lg lg:max-w-none"
+            className="device-stage relative mx-auto w-full max-w-lg lg:max-w-none"
           >
-            {/* bronze bloom behind the panel gives it a seat in the scene */}
+            {/* cool screen bloom — the one place --screen-glow appears */}
             <div
-              className="pointer-events-none absolute -inset-8 rounded-[2rem] bg-brand-primary/[0.07] blur-3xl"
+              className="pointer-events-none absolute -inset-10 rounded-[2.5rem] bg-screen/[0.08] blur-3xl"
               aria-hidden="true"
             />
-            <Tilt max={4}>
-              <AgentConsole className="relative" />
-            </Tilt>
+            <motion.div
+              style={
+                deviceDepthActive
+                  ? { y: deviceY, rotateY: deviceRotate, transformStyle: "preserve-3d" }
+                  : undefined
+              }
+              className="relative"
+            >
+              <div className="device-frame device-reflection">
+                <AgentConsole frameless className="relative" />
+              </div>
+              <div className="device-base" aria-hidden="true" />
+              <div className="device-floor" aria-hidden="true" />
+            </motion.div>
           </motion.div>
         </div>
       </div>
