@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowUpRight, Sparkles } from "lucide-react";
 import { HOME_SERVICE_HIGHLIGHTS, POSITIONING, SERVICES } from "@/lib/constants";
-import AnimateOnScroll from "@/components/ui/animate-on-scroll";
+import { StaggerGroup, StaggerItem } from "@/components/ui/motion-primitives";
 import SectionBadge from "@/components/ui/section-badge";
 import SectionHeader from "@/components/ui/section-header";
 import Spotlight from "@/components/ui/spotlight";
@@ -81,9 +81,11 @@ export default function BentoServices() {
           </ul>
         </div>
 
-        <div className="mx-auto grid max-w-6xl auto-rows-[minmax(0,auto)] gap-4 sm:grid-cols-2 lg:grid-cols-6">
+        {/* Tiles cascade in with staggered springs rather than identical
+            simultaneous fades — one group orchestrates all seven. */}
+        <StaggerGroup className="mx-auto grid max-w-6xl auto-rows-[minmax(0,auto)] gap-4 sm:grid-cols-2 lg:grid-cols-6">
           {/* lead tile */}
-          <AnimateOnScroll className={cn("h-full sm:col-span-2", SPANS[0])}>
+          <StaggerItem className={cn("h-full sm:col-span-2", SPANS[0])}>
             <Spotlight className="panel group flex h-full flex-col overflow-hidden p-6 sm:p-7">
               <div className="mb-5 flex size-14 items-center justify-center rounded-2xl border border-brand-primary/20 bg-brand-primary/[0.08] text-brand-primary">
                 <ServiceIcon name={feature.icon} className="size-7" />
@@ -117,13 +119,12 @@ export default function BentoServices() {
                 <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
               </Link>
             </Spotlight>
-          </AnimateOnScroll>
+          </StaggerItem>
 
           {/* remaining tiles */}
           {rest.map((service, index) => (
-            <AnimateOnScroll
+            <StaggerItem
               key={service.id}
-              delay={(index + 1) * 70}
               className={cn("h-full", SPANS[index + 1] ?? "lg:col-span-2")}
             >
               <Spotlight className="panel group flex h-full flex-col p-5 sm:p-6">
@@ -149,9 +150,9 @@ export default function BentoServices() {
                   <ArrowUpRight className="size-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                 </Link>
               </Spotlight>
-            </AnimateOnScroll>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerGroup>
 
         <div className="mt-12 flex justify-center">
           <Button asChild size="lg" variant="outline" className="rounded-full">

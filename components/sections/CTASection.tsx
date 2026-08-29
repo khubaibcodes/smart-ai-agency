@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { AGENCY } from "@/lib/constants";
+import { Magnetic } from "@/components/ui/motion-primitives";
 import { Button } from "@/components/ui/button";
 
 export default function CTASection() {
@@ -17,9 +18,11 @@ export default function CTASection() {
           off you — and what that would cost. Book a {AGENCY.discoveryCall}, no commitment.
         </p>
         <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-          <Button asChild size="lg" variant="white" className="w-full rounded-full sm:w-auto">
-            <Link href="/contact">Book a Free Call</Link>
-          </Button>
+          <Magnetic className="w-full sm:w-auto">
+            <Button asChild size="lg" variant="white" className="w-full rounded-full sm:w-auto">
+              <Link href="/contact">Book a Free Call</Link>
+            </Button>
+          </Magnetic>
           <Button asChild size="lg" variant="outline" className="w-full rounded-full sm:w-auto">
             <Link href="/contact">Get a Custom Quote</Link>
           </Button>

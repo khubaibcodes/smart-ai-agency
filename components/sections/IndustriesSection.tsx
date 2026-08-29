@@ -1,6 +1,6 @@
 import { Building2 } from "lucide-react";
 import { INDUSTRIES, INDUSTRIES_SECTION } from "@/lib/constants";
-import AnimateOnScroll from "@/components/ui/animate-on-scroll";
+import { StaggerGroup, StaggerItem } from "@/components/ui/motion-primitives";
 import SectionBadge from "@/components/ui/section-badge";
 import { ServiceIcon } from "@/components/ui/service-icon";
 import { cn } from "@/lib/utils";
@@ -36,10 +36,10 @@ export default function IndustriesSection() {
             </p>
           </div>
 
-          <ul className="lg:pt-2">
+          <StaggerGroup stagger={0.06} amount={0.1} className="lg:pt-2">
             {INDUSTRIES.map((industry, index) => (
-              <AnimateOnScroll key={industry.id} delay={index * 60}>
-                <li
+              <StaggerItem key={industry.id}>
+                <div
                   className={cn(
                     "group grid gap-4 py-7 sm:grid-cols-[auto_1fr] sm:gap-6",
                     index > 0 && "border-t border-[var(--hairline)]",
@@ -56,10 +56,10 @@ export default function IndustriesSection() {
                       {industry.fix}
                     </p>
                   </div>
-                </li>
-              </AnimateOnScroll>
+                </div>
+              </StaggerItem>
             ))}
-          </ul>
+          </StaggerGroup>
         </div>
 
         <p className="mx-auto mt-12 max-w-2xl border-t border-[var(--hairline)] pt-8 text-center text-sm leading-relaxed text-muted-foreground">
