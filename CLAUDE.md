@@ -32,8 +32,12 @@ Key rules:
 ## Development Standards
 
 - Match existing Tailwind + shadcn patterns before adding new abstractions
-- Dark warm-charcoal theme — brand colors in `app/globals.css`. Extend `.panel`
-  rather than introducing a second surface style
+- Near-black ground with a single violet accent — brand colors in
+  `app/globals.css`. Extend `.panel` rather than introducing a second surface
+  style. The accent has two steps and the split is load-bearing:
+  `--brand-primary` (#7C87E8) for text, icons and borders, where AA needs
+  4.5:1; `--brand-primary-dark` (#5E6AD2) for fills and glows, where the bar
+  is 3:1. Using the fill tone for small text fails contrast
 - Use Lucide icons (brand icons like LinkedIn: inline SVG if not in Lucide)
 - Per-page SEO via `createPageMetadata()` from `lib/seo.ts`
 - Never hardcode Supabase keys in client code — use server env vars only
@@ -71,6 +75,10 @@ Key rules:
   something real (a call flow, a pipeline, a booking) — decorative movement that
   represents nothing gets cut
 - Each new section needs its own layout idea, not another card grid
+- **Never let an animation own the only copy of a value.** Render the real
+  content server-side and animate on top of it: a count-up that writes the
+  number itself leaves zeros in the HTML for crawlers, reduced-motion visitors
+  and any failed JS load (see `AnimatedStat`)
 
 ---
 
@@ -79,8 +87,10 @@ Key rules:
 - Target clients: international companies + local SMBs wanting AI automation
 - Owner: **Khubab**
 - Contact email: `smrtaisolutions@gmail.com`
-- Domain: `https://genzai.agency` — ⚠️ currently NXDOMAIN, see Known issues in
-  `Smart-AI-Agency.md`
+- Domain: set via `NEXT_PUBLIC_SITE_URL` (see `lib/site-url.ts`). Never hardcode
+  a domain — that one value feeds `metadataBase`, every canonical, `og:url`,
+  the sitemap, robots.txt, llms.txt and the JSON-LD graph. Unset, it falls back
+  to the Vercel production URL and then `smart-ai-agency.vercel.app`
 - Location: Palmerston North, New Zealand
 - Lead services (what clients ask for by name): voice agents, WhatsApp/messaging
   agents, email agents, fully-managed automation
