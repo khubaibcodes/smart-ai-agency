@@ -2,53 +2,64 @@
 
 /* ============================================
    SMART AI SOLUTIONS — BRAND DESIGN SYSTEM
-   Warm charcoal + amber/bronze studio theme
+   Near-black ground + a single violet accent
 
-   Concept: "instrument panel" — bronze light on
-   machined charcoal. Depth comes from layered
+   Concept: "instrument panel" — one light source
+   on machined near-black. Depth comes from layered
    translucency and hairlines, never drop shadows.
+
+   The accent exists in two steps, and the split is
+   load-bearing: --brand-primary (#7C87E8) is the
+   text/icon/border tone and clears 5.8:1 on the
+   ground, while --brand-primary-dark (#5E6AD2) is
+   the fill tone for buttons and glows, where the
+   bar is 3:1 and the deeper violet reads better.
+   Using #5E6AD2 for small text would fail AA.
    ============================================ */
 
 :root {
-  --background: #0b0b0d;
-  --foreground: #e8e4dc;
-  --card: #151517;
-  --card-foreground: #e8e4dc;
-  --popover: #18181b;
-  --popover-foreground: #e8e4dc;
-  --primary: #d9a15b;
-  --primary-foreground: #0b0b0d;
-  --secondary: #1b1b1e;
-  --secondary-foreground: #e8e4dc;
-  --muted: #151517;
-  --muted-foreground: #8a8680;
-  --accent: #1b1b1e;
-  --accent-foreground: #e8e4dc;
+  --background: #0F0F14;
+  --foreground: #E9E9F1;
+  --card: #191921;
+  --card-foreground: #E9E9F1;
+  --popover: #1C1C26;
+  --popover-foreground: #E9E9F1;
+  --primary: #7C87E8;
+  --primary-foreground: #0F0F14;
+  --secondary: #20202B;
+  --secondary-foreground: #E9E9F1;
+  --muted: #191921;
+  --muted-foreground: #A2A2B4;
+  --accent: #20202B;
+  --accent-foreground: #E9E9F1;
   --destructive: #ef4444;
-  --border: rgba(232, 228, 220, 0.09);
-  --input: rgba(232, 228, 220, 0.12);
-  --ring: rgba(217, 161, 91, 0.45);
+  --border: rgba(233, 233, 241, 0.09);
+  --input: rgba(233, 233, 241, 0.12);
+  --ring: rgba(124, 135, 232, 0.45);
   --radius: 0.75rem;
 
-  --brand-primary: #d9a15b;
-  --brand-primary-dark: #a8763c;
-  --brand-accent: #e8c89a;
+  --brand-primary: #7C87E8;
+  --brand-primary-dark: #5E6AD2;
+  --brand-accent: #A9B0F5;
   --brand-bg: var(--elev-0);
   --brand-bg-2: var(--elev-1);
   --brand-card: var(--elev-2);
   --brand-elevated: var(--elev-3);
-  --brand-text: #e8e4dc;
-  --brand-text-muted: #a19c92;
-  --brand-text-dim: #8a8680;
+  --brand-text: #E9E9F1;
+  --brand-text-muted: #A2A2B4;
+  /* Third step down, still 4.9:1 on the ground — dim is quiet, not unreadable. */
+  --brand-text-dim: #82828F;
   --navbar-h: 4.5rem;
 
   /*
-   * Screen accent — a muted cool grey-blue used ONLY for the "real product
-   * screen" glow on the hero device mockup. It exists to visually separate
-   * "an actual interface" from the ambient amber brand light, and must never
-   * be used for text, CTAs, or decorative atmosphere.
+   * Screen accent — a desaturated teal used ONLY for the "real product screen"
+   * glow on the hero device mockup. It exists to visually separate "an actual
+   * interface" from the ambient violet brand light, and must never be used for
+   * text, CTAs, or decorative atmosphere. Pulled away from blue deliberately:
+   * against a violet accent a blue-grey screen would read as a third brand
+   * colour rather than as a lit display.
    */
-  --screen-glow: #6fa3b8;
+  --screen-glow: #5E9AA8;
 
   /* ---- motion tokens ---- */
   --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
@@ -77,16 +88,16 @@
    * Four surface steps from page ground to highest card. Depth reads through
    * these tonal shifts first; borders and blur are secondary.
    */
-  --elev-0: #0b0b0d;
-  --elev-1: #101013;
-  --elev-2: #151517;
-  --elev-3: #1a1a1e;
+  --elev-0: #0F0F14;
+  --elev-1: #14141B;
+  --elev-2: #191921;
+  --elev-3: #1F1F28;
 
   /* translucent variants used by .panel / .glass-card */
-  --surface-1: rgba(21, 21, 23, 0.55);
-  --surface-2: rgba(26, 26, 30, 0.72);
-  --hairline: rgba(232, 228, 220, 0.08);
-  --hairline-strong: rgba(232, 228, 220, 0.14);
+  --surface-1: rgba(25, 25, 33, 0.55);
+  --surface-2: rgba(31, 31, 40, 0.72);
+  --hairline: rgba(233, 233, 241, 0.08);
+  --hairline-strong: rgba(233, 233, 241, 0.14);
 }
 
 /* Animatable angle for conic gradient borders. */
@@ -184,7 +195,7 @@
   }
 
   ::selection {
-    background: rgba(217, 161, 91, 0.28);
+    background: rgba(124, 135, 232, 0.28);
     color: var(--brand-text);
   }
 
@@ -208,7 +219,7 @@
   }
 
   .gradient-text {
-    background: linear-gradient(100deg, #f0dcc0 0%, #d9a15b 55%, #b8823f 100%);
+    background: linear-gradient(100deg, #C7CCFA 0%, #7C87E8 55%, #4C57B8 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -254,15 +265,15 @@
 
   .hero-grid {
     background-image:
-      linear-gradient(rgba(232, 228, 220, 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(232, 228, 220, 0.03) 1px, transparent 1px);
+      linear-gradient(rgba(233, 233, 241, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(233, 233, 241, 0.03) 1px, transparent 1px);
     background-size: 48px 48px;
   }
 
   .hero-grid-mask {
     background-image:
-      linear-gradient(rgba(232, 228, 220, 0.022) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(232, 228, 220, 0.022) 1px, transparent 1px);
+      linear-gradient(rgba(233, 233, 241, 0.022) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(233, 233, 241, 0.022) 1px, transparent 1px);
     background-size: 72px 72px;
     mask-image: radial-gradient(ellipse 70% 70% at 50% 40%, black 20%, transparent 100%);
   }
@@ -271,15 +282,15 @@
 
   .hero-shell {
     background:
-      radial-gradient(ellipse 90% 70% at 50% -20%, rgba(217, 161, 91, 0.09) 0%, transparent 55%),
-      radial-gradient(ellipse 60% 50% at 80% 100%, rgba(184, 130, 63, 0.05) 0%, transparent 50%),
+      radial-gradient(ellipse 90% 70% at 50% -20%, rgba(124, 135, 232, 0.09) 0%, transparent 55%),
+      radial-gradient(ellipse 60% 50% at 80% 100%, rgba(94, 106, 210, 0.05) 0%, transparent 50%),
       var(--brand-bg);
   }
 
   .hero-vignette {
     background:
-      radial-gradient(ellipse 100% 85% at 50% 50%, transparent 50%, rgba(11, 11, 13, 0.2) 85%, rgba(11, 11, 13, 0.45) 100%),
-      linear-gradient(to bottom, rgba(11, 11, 13, 0.12) 0%, transparent 22%, transparent 78%, rgba(11, 11, 13, 0.25) 100%);
+      radial-gradient(ellipse 100% 85% at 50% 50%, transparent 50%, rgba(15, 15, 20, 0.2) 85%, rgba(15, 15, 20, 0.45) 100%),
+      linear-gradient(to bottom, rgba(15, 15, 20, 0.12) 0%, transparent 22%, transparent 78%, rgba(15, 15, 20, 0.25) 100%);
   }
 
   .hero-stats-bar {
@@ -304,14 +315,14 @@
     border: 1px solid var(--hairline);
     border-radius: var(--radius-xl);
     background:
-      linear-gradient(180deg, rgba(232, 228, 220, 0.035) 0%, transparent 42%),
+      linear-gradient(180deg, rgba(233, 233, 241, 0.035) 0%, transparent 42%),
       var(--surface-1);
     backdrop-filter: blur(14px);
   }
 
   .panel-elevated {
     background:
-      linear-gradient(180deg, rgba(232, 228, 220, 0.05) 0%, transparent 42%),
+      linear-gradient(180deg, rgba(233, 233, 241, 0.05) 0%, transparent 42%),
       var(--surface-2);
   }
 
@@ -325,18 +336,18 @@
   /*
    * Laptop-style display shell around the live console. The only place the
    * cool --screen-glow accent appears: it marks "this is an actual product
-   * screen", where amber stays the ambient brand light.
+   * screen", where violet stays the ambient brand light.
    */
   .device-frame {
     position: relative;
     border-radius: calc(var(--radius-xl) + 6px);
     border: 1px solid var(--hairline-strong);
     background:
-      linear-gradient(180deg, rgba(232, 228, 220, 0.07) 0%, transparent 30%),
+      linear-gradient(180deg, rgba(233, 233, 241, 0.07) 0%, transparent 30%),
       var(--elev-3);
     padding: var(--space-2);
     box-shadow:
-      0 1px 0 rgba(232, 228, 220, 0.06) inset,
+      0 1px 0 rgba(233, 233, 241, 0.06) inset,
       0 30px 80px -24px rgba(0, 0, 0, 0.75),
       0 0 90px -30px color-mix(in srgb, var(--screen-glow) 45%, transparent);
   }
@@ -351,8 +362,8 @@
     z-index: 2;
     background: linear-gradient(
       115deg,
-      rgba(232, 228, 220, 0.065) 0%,
-      rgba(232, 228, 220, 0.02) 18%,
+      rgba(233, 233, 241, 0.065) 0%,
+      rgba(233, 233, 241, 0.02) 18%,
       transparent 32%
     );
   }
@@ -396,7 +407,7 @@
     padding: 1px;
     background: radial-gradient(
       220px circle at var(--mx, 50%) var(--my, 0%),
-      rgba(217, 161, 91, 0.55),
+      rgba(124, 135, 232, 0.55),
       transparent 68%
     );
     -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
@@ -450,8 +461,8 @@
     background: conic-gradient(
       from var(--angle),
       transparent 0%,
-      rgba(217, 161, 91, 0.65) 12%,
-      rgba(232, 200, 154, 0.35) 20%,
+      rgba(124, 135, 232, 0.65) 12%,
+      rgba(169, 176, 245, 0.35) 20%,
       transparent 34%
     );
     -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
@@ -493,7 +504,7 @@
     position: absolute;
     inset: -4px;
     border-radius: 9999px;
-    border: 1px solid rgba(217, 161, 91, 0.4);
+    border: 1px solid rgba(124, 135, 232, 0.4);
     animation: ping-ring 2.4s var(--ease-out-expo) infinite;
   }
 
@@ -550,6 +561,92 @@
   to { stroke-dashoffset: -12; }
 }
 
+/* ==========================================================================
+   Voice demo
+   Three small motions, each tied to something the call is actually doing:
+   bars while the agent is speaking, a ring while the line is live, and a
+   bubble arriving as each turn lands. Nothing here animates on idle.
+   ========================================================================== */
+
+.voice-wave {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 0.75rem;
+  margin-left: 0.5rem;
+  vertical-align: -1px;
+}
+
+.voice-wave-bar {
+  width: 2px;
+  height: 35%;
+  border-radius: 1px;
+  background: var(--brand-primary);
+  opacity: 0.85;
+}
+
+.voice-wave[data-active] .voice-wave-bar {
+  animation: voice-wave 900ms ease-in-out infinite;
+}
+
+.voice-wave-bar:nth-child(2) {
+  animation-delay: 120ms;
+}
+.voice-wave-bar:nth-child(3) {
+  animation-delay: 240ms;
+}
+.voice-wave-bar:nth-child(4) {
+  animation-delay: 80ms;
+}
+.voice-wave-bar:nth-child(5) {
+  animation-delay: 300ms;
+}
+
+@keyframes voice-wave {
+  0%,
+  100% {
+    height: 30%;
+  }
+  50% {
+    height: 100%;
+  }
+}
+
+.voice-pulse {
+  position: absolute;
+  inset: -2px;
+  border-radius: 9999px;
+  border: 1px solid var(--brand-primary);
+  opacity: 0;
+  animation: voice-pulse 1800ms ease-out infinite;
+}
+
+@keyframes voice-pulse {
+  0% {
+    opacity: 0.55;
+    transform: scale(0.92);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.35);
+  }
+}
+
+.voice-bubble-in {
+  animation: voice-bubble-in 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes voice-bubble-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 /* ============================================
    REDUCED MOTION
    Every decorative animation collapses to a
@@ -578,5 +675,16 @@
   .caret::after {
     animation: none;
     opacity: 1;
+  }
+
+  /* The demo renders its transcript complete rather than animating it in,
+     so these are decoration with nothing left to express. */
+  .voice-wave,
+  .voice-pulse {
+    display: none;
+  }
+
+  .voice-bubble-in {
+    animation: none;
   }
 }

@@ -172,6 +172,31 @@ export interface IllustrativeExample {
   outcome: string;
 }
 
+/** One line of a demo phone call. */
+export interface CallTurn {
+  speaker: "caller" | "agent";
+  text: string;
+}
+
+/**
+ * A scripted inbound call for one industry.
+ *
+ * Deliberately generic: no invented business name, no named persona on the
+ * caller side, no numbers presented as results. It demonstrates the shape of
+ * a call the agent handles, and the UI labels it as a scripted demo — the same
+ * rule the AgentConsole's "illustrative trace" tag follows.
+ */
+export interface CallScript {
+  id: string;
+  /** Industry label for the toggle, e.g. "Dental". */
+  vertical: string;
+  /** What the caller reached, e.g. "Dental practice · after hours". */
+  context: string;
+  turns: CallTurn[];
+  /** What the agent wrote where, once the call ended. */
+  outcome: string[];
+}
+
 export interface VoiceCapability {
   title: string;
   description: string;

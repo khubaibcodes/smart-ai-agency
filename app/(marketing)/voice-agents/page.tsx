@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight, PhoneOff, Mic } from "lucide-react";
 import {
   VOICE_CAPABILITIES,
+  VOICE_FAQ_ITEMS,
   VOICE_HANDOFF,
   VOICE_MOMENTS,
   VOICE_PAGE,
@@ -17,6 +18,10 @@ import Spotlight from "@/components/ui/spotlight";
 import Tilt from "@/components/ui/tilt";
 import { ServiceIcon } from "@/components/ui/service-icon";
 import { Button } from "@/components/ui/button";
+import { BreadcrumbSchema, ServiceSchema } from "@/components/ui/json-ld";
+import FaqSection from "@/components/sections/FaqSection";
+import VoiceDemo from "@/components/sections/VoiceDemo";
+import SectionHeader from "@/components/ui/section-header";
 
 export const metadata = createPageMetadata({
   title: "Voice AI Agents",
@@ -28,6 +33,13 @@ export const metadata = createPageMetadata({
 export default function VoiceAgentsPage() {
   return (
     <>
+      <ServiceSchema
+        id="voice-agents"
+        name="AI Voice Agents"
+        description="AI phone agents that answer every call on the first ring, book and reschedule against a live calendar, qualify enquiries, and hand over to a person when one is needed."
+        path="/voice-agents"
+      />
+      <BreadcrumbSchema trail={[{ name: "Voice Agents", path: "/voice-agents" }]} />
       <PageHero
         badge={
           <SectionBadge>
@@ -65,6 +77,26 @@ export default function VoiceAgentsPage() {
                 </div>
               </AnimateOnScroll>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ---------- the demo ----------
+          Placed directly under the hero: the page's whole argument is "it
+          answers the phone properly", and the fastest way to make that
+          argument is to let the visitor watch it happen. */}
+      <section id="demo" className="scroll-mt-[var(--navbar-h)] section-padding">
+        <div className="container-site">
+          <SectionHeader
+            title={
+              <>
+                Listen to it <span className="gradient-text">take a call</span>
+              </>
+            }
+            subtitle="Pick the kind of business you run and play the call through. This is a scripted demo — same shape as the calls a live agent handles."
+          />
+          <div className="mx-auto max-w-5xl">
+            <VoiceDemo />
           </div>
         </div>
       </section>
@@ -163,6 +195,16 @@ export default function VoiceAgentsPage() {
           </AnimateOnScroll>
         </div>
       </section>
+
+      <FaqSection
+        items={VOICE_FAQ_ITEMS}
+        title={
+          <>
+            Before you <span className="gradient-text">ask</span>
+          </>
+        }
+        subtitle="Cost, build time, what it plugs into, and what happens to the recordings."
+      />
 
       <CTASection />
     </>

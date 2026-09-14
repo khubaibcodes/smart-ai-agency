@@ -8,6 +8,7 @@ import CTASection from "@/components/sections/CTASection";
 import SectionBadge from "@/components/ui/section-badge";
 import { Button } from "@/components/ui/button";
 import { ABOUT_STATS } from "@/lib/constants";
+import { BreadcrumbSchema } from "@/components/ui/json-ld";
 
 export const metadata = createPageMetadata({
   title: "About Us",
@@ -19,6 +20,7 @@ export const metadata = createPageMetadata({
 export default function AboutPage() {
   return (
     <>
+      <BreadcrumbSchema trail={[{ name: "About", path: "/about" }]} />
       <PageHero
         badge={<SectionBadge>Who We Are</SectionBadge>}
         title={

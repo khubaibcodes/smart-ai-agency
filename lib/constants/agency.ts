@@ -1,13 +1,19 @@
 /** Single source of truth for agency contact & business info. */
 
 import type { Stat } from "@/lib/types";
+import { SITE_URL } from "@/lib/site-url";
 import { SERVICES } from "./services";
 
 export const AGENCY = {
   name: "Smart AI Solutions",
   shortName: "Smart AI",
   tagline: "Intelligent AI Automation",
-  domain: "https://genzai.agency",
+  /**
+   * Resolved from `NEXT_PUBLIC_SITE_URL` at build time — see lib/site-url.ts.
+   * Never hardcode a domain here: this single value feeds canonicals, OG tags,
+   * the sitemap and the JSON-LD graph, so a stale one breaks all of them at once.
+   */
+  domain: SITE_URL,
   email: "smrtaisolutions@gmail.com",
   /** Display format. */
   phone: "+64 22 086 4612",

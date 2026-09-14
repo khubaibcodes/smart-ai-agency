@@ -1,8 +1,14 @@
 import type { Metadata } from "next";
 import { AGENCY } from "./constants/agency";
 import { ASSETS } from "./assets";
+import { absoluteUrl } from "./site-url";
 
 const siteName = AGENCY.name;
+
+/** The brand's primary search line. Also the homepage `<title>`. */
+export const DEFAULT_TITLE =
+  "Smart AI Solutions | AI Voice Agents & Automation for Growing Businesses";
+
 const defaultDescription =
   "AI agents that answer your calls, reply to WhatsApp and email, and clear repetitive admin around the clock — plus instant answers from your own documents.";
 
@@ -27,7 +33,10 @@ const OG_IMAGE = {
 export const rootMetadata: Metadata = {
   metadataBase: new URL(AGENCY.domain),
   title: {
-    default: `${siteName} | Intelligent AI Automation`,
+    default: DEFAULT_TITLE,
+    // Pages that want the brand appended pass a bare string; pages whose title
+    // already carries the brand use `createPageMetadata`, which sets an
+    // absolute title so the name is never printed twice.
     template: `%s | ${siteName}`,
   },
   description: defaultDescription,
@@ -53,13 +62,13 @@ export const rootMetadata: Metadata = {
     locale: "en_US",
     url: AGENCY.domain,
     siteName,
-    title: `${siteName} | Intelligent AI Automation`,
+    title: DEFAULT_TITLE,
     description: defaultDescription,
     images: [OG_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteName} | Intelligent AI Automation`,
+    title: DEFAULT_TITLE,
     description: defaultDescription,
     images: [OG_IMAGE.url],
   },
@@ -67,6 +76,20 @@ export const rootMetadata: Metadata = {
     ? { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION }
     : undefined,
 };
+
+/**
+ * Builds the full `<title>`, appending the brand only when the page's own
+ * title doesn't already carry it.
+ *
+ * The site previously handed Next a bare string and let the root template add
+ * `| Smart AI Solutions`, which printed the brand twice on any page that named
+ * itself — the homepage rendered "Smart AI Solutions | Intelligent AI
+ * Automation | Smart AI Solutions". Composing here and emitting an absolute
+ * title makes that impossible in either direction.
+ */
+function composeTitle(title: string): string {
+  return title.includes(siteName) ? title : `${title} | ${siteName}`;
+}
 
 export function createPageMetadata({
   title,
@@ -77,13 +100,14 @@ export function createPageMetadata({
   description: string;
   path: string;
 }): Metadata {
-  const url = `${AGENCY.domain}${path}`;
+  const url = absoluteUrl(path);
+  const fullTitle = composeTitle(title);
   return {
-    title,
+    title: { absolute: fullTitle },
     description,
     alternates: { canonical: url },
     openGraph: {
-      title,
+      title: fullTitle,
       description,
       url,
       images: [OG_IMAGE],
@@ -93,7 +117,7 @@ export function createPageMetadata({
       // object rather than merging into it, so omitting it silently
       // downgrades every page to a small "summary" card.
       card: "summary_large_image",
-      title,
+      title: fullTitle,
       description,
       images: [OG_IMAGE.url],
     },

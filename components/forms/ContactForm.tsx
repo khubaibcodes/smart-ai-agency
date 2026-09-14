@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
-import { Loader2, Send } from "lucide-react";
+import { useEffect, useState } from "react";
+import { FileText, Loader2, Send } from "lucide-react";
 import {
   AGENCY,
   BUDGET_OPTIONS,
+  RESOURCE_REQUESTS,
   SERVICE_OPTIONS,
 } from "@/lib/constants";
 import { validateContactPayload } from "@/lib/validation/contact";
@@ -26,6 +27,27 @@ export default function ContactForm() {
   const [error, setError] = useState("");
   const [service, setService] = useState("");
   const [budget, setBudget] = useState("");
+  const [message, setMessage] = useState("");
+  const [requested, setRequested] = useState<string | null>(null);
+
+  /**
+   * Carry a resource request in from the `?topic=` link.
+   *
+   * Read from `window.location` in an effect rather than `useSearchParams`
+   * on purpose: this form sits on a statically-rendered route, and reading
+   * search params during render would opt the whole page into dynamic
+   * rendering (or need a Suspense boundary around it) for a progressive
+   * enhancement that only matters once the page is interactive anyway.
+   */
+  useEffect(() => {
+    const topic = new URLSearchParams(window.location.search).get("topic");
+    const request = topic ? RESOURCE_REQUESTS[topic] : undefined;
+    if (!request) return;
+
+    setRequested(request.label);
+    setService(request.service);
+    setMessage((current) => current || request.message);
+  }, []);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -42,7 +64,7 @@ export default function ContactForm() {
       company: String(formData.get("company") ?? "").trim(),
       service,
       budget,
-      message: String(formData.get("message") ?? "").trim(),
+      message: message.trim(),
     };
 
     const validation = validateContactPayload(payload);
@@ -66,6 +88,7 @@ export default function ContactForm() {
       event.currentTarget.reset();
       setService("");
       setBudget("");
+      setMessage("");
     } catch (err) {
       setStatus("error");
       setError(err instanceof Error ? err.message : "Unable to send message");
@@ -98,6 +121,21 @@ export default function ContactForm() {
         <CardDescription>Fill in the form and we&apos;ll get back to you shortly.</CardDescription>
       </CardHeader>
       <CardContent>
+        {/* Arriving from a resource card, the visitor should see that the
+            request came with them — otherwise the CTA they clicked and the
+            blank form they landed on look like two unrelated things. */}
+        {requested ? (
+          <div className="mb-6 flex items-start gap-3 rounded-lg border border-brand-primary/25 bg-brand-primary/[0.06] p-3.5">
+            <FileText className="mt-0.5 size-4 shrink-0 text-brand-primary" aria-hidden="true" />
+            <p className="text-sm leading-relaxed">
+              <span className="font-medium">You&apos;re requesting: {requested}</span>
+              <span className="block text-muted-foreground">
+                Send the form and we&apos;ll email it over — usually {AGENCY.responseTime}.
+              </span>
+            </p>
+          </div>
+        ) : null}
+
         <form onSubmit={handleSubmit} className="space-y-5">
           {/* Honeypot. Positioned off-screen rather than display:none — some
               bots skip hidden inputs — and kept out of the tab order and the
@@ -175,6 +213,8 @@ export default function ContactForm() {
               rows={5}
               required
               minLength={10}
+              value={message}
+              onChange={(event) => setMessage(event.target.value)}
               placeholder="Describe the problem you're trying to solve or the workflow you'd like to automate..."
             />
           </div>

@@ -55,7 +55,7 @@ export const HOME_SERVICE_HIGHLIGHTS: ServiceHighlight[] = HOME_SERVICE_IDS.map(
  */
 export const HOME_HERO = {
   eyebrow: "AI Automation Agency · Available worldwide",
-  /** Each line animates in separately. Last line renders in the amber gradient. */
+  /** Each line animates in separately. Last line renders in the violet gradient. */
   headline: ["Answer every call.", "Reply to every message.", "Never miss a booking."],
   subtitle:
     "One AI system running the front line of your business — the phone, the inbox, the calendar. It works nights, weekends and lunch breaks, and it never calls in sick.",
@@ -93,7 +93,7 @@ export const POSITIONING = {
  */
 export const CLAUDE_SECTION = {
   titleLead: "Built with",
-  /** Rendered in the amber gradient. */
+  /** Rendered in the violet gradient. */
   titleAccent: "Claude API",
   titleTail: "— Anthropic's Most Advanced AI",
   subtitle:
@@ -152,32 +152,83 @@ export const CLAUDE_OFFERINGS: ClaudeOffering[] = [
  * when a client approves one for public use.
  */
 
+/**
+ * Requestable resources.
+ *
+ * Two rules these cards kept breaking:
+ *
+ * 1. The CTA has to match what the click does. "Get the Guide" and "Read Case
+ *    Study" both landed on the contact form, which reads as a bait-and-switch
+ *    the moment the page loads. They're written and sent by a person, so the
+ *    button says request — and `cta` phrasing must keep matching the
+ *    destination if that ever changes.
+ * 2. No unevidenced client story. The card here previously advertised a
+ *    case study — "a mid-market company", "40 manual processes", "80% time
+ *    savings", "what it cost, what it saved" — for a client engagement with no
+ *    sign-off behind it. That is exactly what the Story type's `verified`
+ *    field exists to prevent, and a resource card is not a loophole. It's been
+ *    replaced with a breakdown of our own process, which we can stand behind
+ *    without anyone's permission.
+ */
 export const RESOURCE_CARDS: ResourceCard[] = [
   {
     title: "Where to Start With AI",
     description:
       "The five jobs most businesses automate first, why they pay back fastest, and how to tell which one applies to you.",
     href: "/contact?topic=guide",
-    cta: "Get the Guide",
+    cta: "Request the guide",
     icon: "file-text",
   },
   {
-    title: "Case Study: 80% Time Savings",
+    title: "What a Build Actually Involves",
     description:
-      "How a mid-market company handed 40 manual processes to AI agents. What it cost, what it saved, and what we'd do differently.",
-    href: "/contact?topic=casestudy",
-    cta: "Read Case Study",
-    icon: "chart-line",
+      "Scoping, build, integration, handover — what happens in each stage, what we need from you, and what it costs to keep running afterwards.",
+    href: "/contact?topic=process",
+    cta: "Request the breakdown",
+    icon: "workflow",
   },
   {
     title: "Is Your Workflow Ready?",
     description:
       "A short audit checklist to run before you automate anything — the security, data and process questions worth answering first.",
     href: "/contact?topic=checklist",
-    cta: "Get Checklist",
+    cta: "Request the checklist",
     icon: "lightbulb",
   },
 ];
+
+/**
+ * What `?topic=` on the contact link means.
+ *
+ * The resource CTAs promise a person will send something; this is what makes
+ * that true rather than decorative. The contact form reads the topic, says
+ * which resource is being requested, and pre-writes the message so the
+ * enquiry arrives labelled instead of as another blank "get in touch".
+ *
+ * Keys must match the `href` query values in RESOURCE_CARDS above.
+ */
+export const RESOURCE_REQUESTS: Record<
+  string,
+  { label: string; service: string; message: string }
+> = {
+  guide: {
+    label: "Where to Start With AI",
+    service: "consulting",
+    message:
+      "I'd like the \"Where to Start With AI\" guide — the five jobs most businesses automate first.",
+  },
+  process: {
+    label: "What a Build Actually Involves",
+    service: "consulting",
+    message:
+      "I'd like the breakdown of what a build involves — scoping, build, integration, handover and running costs.",
+  },
+  checklist: {
+    label: "Is Your Workflow Ready?",
+    service: "consulting",
+    message: "I'd like the pre-automation audit checklist.",
+  },
+};
 
 /**
  * The real team — two people, real names, real profiles. The previous four
