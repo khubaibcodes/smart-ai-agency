@@ -20,7 +20,7 @@ export default function KineticText({
 }: {
   text: string;
   className?: string;
-  /** Words in this list render in the amber gradient. */
+  /** Words in this list render in the violet gradient. */
   highlight?: string[];
   delay?: number;
   stagger?: number;
