@@ -174,7 +174,7 @@ export default function HeroSection() {
 
           {/* The realistic anchor: the live console rendered as an actual
               device sitting angled in the scene — screen reflection, hardware
-              base, floor shadow, cool screen glow — beside the abstract amber
+              base, floor shadow, cool screen glow — beside the abstract violet
               atmosphere. Real product screen, not decoration: it's the same
               illustrative trace, now on hardware. */}
           <motion.div
