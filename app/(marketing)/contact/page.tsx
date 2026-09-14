@@ -1,12 +1,12 @@
 import { Mail } from "lucide-react";
-import { AGENCY, FAQ_ITEMS } from "@/lib/constants";
+import { AGENCY } from "@/lib/constants";
 import { createPageMetadata } from "@/lib/seo";
 import ContactForm from "@/components/forms/ContactForm";
 import ContactDetails from "@/components/common/ContactDetails";
 import FaqSection from "@/components/sections/FaqSection";
 import PageHero from "@/components/sections/PageHero";
 import SectionBadge from "@/components/ui/section-badge";
-import { FaqSchema } from "@/components/ui/json-ld";
+import { BreadcrumbSchema } from "@/components/ui/json-ld";
 
 export const metadata = createPageMetadata({
   title: "Contact",
@@ -18,7 +18,7 @@ export const metadata = createPageMetadata({
 export default function ContactPage() {
   return (
     <>
-      <FaqSchema items={FAQ_ITEMS} />
+      <BreadcrumbSchema trail={[{ name: "Contact", path: "/contact" }]} />
       <PageHero
         badge={
           <SectionBadge>
@@ -56,7 +56,9 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <FaqSection />
+      {/* Visible for anyone who scrolls here, but the FAQPage markup lives on
+          the homepage: one set of questions, marked up on one URL. */}
+      <FaqSection schema={false} />
     </>
   );
 }

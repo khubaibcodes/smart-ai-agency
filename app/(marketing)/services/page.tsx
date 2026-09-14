@@ -4,6 +4,7 @@ import PageHero from "@/components/sections/PageHero";
 import ServiceDetailSection from "@/components/sections/ServiceDetailSection";
 import CTASection from "@/components/sections/CTASection";
 import SectionBadge from "@/components/ui/section-badge";
+import { BreadcrumbSchema, ServicesSchema } from "@/components/ui/json-ld";
 
 export const metadata = createPageMetadata({
   title: "AI Services",
@@ -15,6 +16,8 @@ export const metadata = createPageMetadata({
 export default function ServicesPage() {
   return (
     <>
+      <ServicesSchema />
+      <BreadcrumbSchema trail={[{ name: "Services", path: "/services" }]} />
       <PageHero
         badge={
           <SectionBadge>

@@ -43,3 +43,6 @@ Thumbs.db
 
 # Legacy
 wifimanager/node_modules/
+
+# TypeScript incremental build cache
+*.tsbuildinfo
