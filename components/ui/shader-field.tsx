@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
 /**
- * Dependency-free WebGL aurora field in the brand amber.
+ * Dependency-free WebGL aurora field in the brand violet.
  *
  * Deliberately not Three.js: this is one fullscreen quad and one fragment
  * shader, so it costs ~4kb instead of ~150kb+.
@@ -90,17 +90,20 @@ void main() {
   float f = fbm(p * 1.4 + r * 1.1);
   f = f * 0.5 + 0.5;
 
-  // brand palette: deep bronze -> amber -> pale sand
-  vec3 bronze = vec3(0.408, 0.271, 0.145);
-  vec3 amber  = vec3(0.851, 0.631, 0.357);
-  vec3 sand   = vec3(0.937, 0.831, 0.667);
+  // brand palette: deep indigo -> violet -> pale periwinkle.
+  // Same three-stop ramp as the CSS accent (#5E6AD2 -> #7C87E8 -> #A9B0F5),
+  // in linear 0-1 — the field is ambient brand light, so it has to be the
+  // same light the rest of the page is lit by.
+  vec3 indigo = vec3(0.180, 0.208, 0.482);
+  vec3 violet = vec3(0.369, 0.416, 0.824);
+  vec3 pale   = vec3(0.663, 0.690, 0.961);
 
-  vec3 col = mix(bronze, amber, smoothstep(0.32, 0.72, f));
-  col = mix(col, sand, smoothstep(0.68, 0.94, f) * 0.55);
+  vec3 col = mix(indigo, violet, smoothstep(0.32, 0.72, f));
+  col = mix(col, pale, smoothstep(0.68, 0.94, f) * 0.55);
 
   // filaments — thin bright veins along the warp ridges
   float ridge = 1.0 - abs(f - 0.5) * 2.0;
-  col += sand * pow(max(ridge, 0.0), 7.0) * 0.35;
+  col += pale * pow(max(ridge, 0.0), 7.0) * 0.35;
 
   // shape the alpha: bloom toward top-centre, fade to nothing at the edges
   float radial = 1.0 - smoothstep(0.15, 1.05, length(p * vec2(0.72, 1.0)));
