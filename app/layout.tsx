@@ -1,6 +1,6 @@
 import { Bricolage_Grotesque, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import { OrganizationSchema, ProfessionalServiceSchema, WebSiteSchema } from "@/components/ui/json-ld";
+import { LocalBusinessSchema, OrganizationSchema, WebSiteSchema } from "@/components/ui/json-ld";
 import { rootMetadata } from "@/lib/seo";
 
 /** Body / UI. */
@@ -45,7 +45,7 @@ export default function RootLayout({
       <head>
         <OrganizationSchema />
         <WebSiteSchema />
-        <ProfessionalServiceSchema />
+        <LocalBusinessSchema />
       </head>
       <body className="min-h-screen bg-brand-bg font-sans antialiased">
         <a
