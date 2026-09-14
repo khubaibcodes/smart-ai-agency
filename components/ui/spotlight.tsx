@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 
 /**
  * Feeds cursor position into the `.spotlight` CSS custom properties so the
- * bronze rim-light tracks the pointer. All the visuals live in globals.css —
+ * violet rim-light tracks the pointer. All the visuals live in globals.css —
  * this only supplies coordinates, and only while the pointer is over the card.
  */
 export default function Spotlight({
